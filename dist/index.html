@@ -1,5 +1,43 @@
-<h1>SITIO WEB DE NOELIZA</h1>
-<p>
-  Landing page personal de Noeliza. Desarrollo a medida enfocado en Marketing
-  Technology, tracking avanzado y optimización de conversión.
-</p>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noeliza | Marketing Technologist</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body
+    class="bg-slate-900 text-white min-h-screen flex items-center justify-center font-sans"
+  >
+    <main
+      class="max-w-md w-full p-8 bg-slate-800 rounded-2xl shadow-2xl border border-slate-700 text-center"
+    >
+      <h1
+        class="text-4xl font-extrabold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent mb-4"
+      >
+        Noeliza
+      </h1>
+
+      <p class="text-slate-400 text-lg mb-8">
+        Marketing Technologist & Tracking Specialist.
+      </p>
+
+      <button
+        class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg active:scale-95"
+        data-track-event="test_click"
+        data-track-location="hero"
+      >
+        Verificar Estilos
+      </button>
+
+      <div class="mt-8 pt-6 border-t border-slate-700">
+        <p class="text-xs text-slate-500 uppercase tracking-widest">
+          Tailwind CSS v4 + GitHub + Hostinger
+        </p>
+      </div>
+    </main>
+
+    <script src="./js/tracking.js" defer></script>
+    <script src="./js/form-handler.js" defer></script>
+  </body>
+</html>
