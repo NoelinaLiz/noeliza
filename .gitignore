@@ -1,15 +1,17 @@
-# OS Metadata
+# Dependencias de Node
+node_modules/
+
+# Archivos de registro y errores
+npm-debug.log
+*.log
+
+# Archivos del sistema operativo
 .DS_Store
 Thumbs.db
 
-# IDEs/Editors
+# Configuración de editores
 .vscode/
 .idea/
 
-# Node (si llegas a usar herramientas de optimización de imágenes o SASS)
-node_modules/
-npm-debug.log
-
-# Archivos temporales o de configuración local
-*.log
+# Variables de entorno
 .env
