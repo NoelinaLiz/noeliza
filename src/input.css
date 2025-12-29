@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+@theme {
+  /* Colores de Noeliza */
+  --color-brand-primary: #1887e1; /* Color principal */
+  --color-brand-hover: #003580; /* Color para el estado hover */
+  --color-brand-accent: #emerald-400; /* Color de acento  */
+}
