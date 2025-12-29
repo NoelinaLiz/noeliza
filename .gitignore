@@ -1,0 +1,15 @@
+# OS Metadata
+.DS_Store
+Thumbs.db
+
+# IDEs/Editors
+.vscode/
+.idea/
+
+# Node (si llegas a usar herramientas de optimización de imágenes o SASS)
+node_modules/
+npm-debug.log
+
+# Archivos temporales o de configuración local
+*.log
+.env
