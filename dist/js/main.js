@@ -23,3 +23,23 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener("click", toggleMenu);
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const image = document.getElementById("image-reveal");
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Cuando la imagen es visible, aplicamos las clases de Tailwind
+          entry.target.classList.remove("opacity-0", "translate-y-4");
+          entry.target.classList.add("opacity-100", "translate-y-0");
+          observer.unobserve(entry.target); // Dejamos de observar una vez cargada
+        }
+      });
+    },
+    { threshold: 0.1 }
+  ); // Se activa cuando el 10% de la imagen es visible
+
+  if (image) observer.observe(image);
+});

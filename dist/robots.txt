@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /js/
+Allow: /js/
+Disallow: /privacidad.html
 Sitemap: https://noeliza.com/sitemap.xml

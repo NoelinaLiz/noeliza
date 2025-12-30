@@ -4,6 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Noeliza | Marketing Technologist | Especialista en GA4 y GTM</title>
+    <script>
+      // 1. Definir el estado inicial (Denegado por defecto)
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      if (!localStorage.getItem("cookie-consent")) {
+        gtag("consent", "default", {
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          analytics_storage: "denied",
+          wait_for_update: 500,
+        });
+      } else {
+        const consent = JSON.parse(localStorage.getItem("cookie-consent"));
+        gtag("consent", "default", consent);
+      }
+    </script>
     <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {
@@ -223,11 +243,16 @@
         class="max-w-5xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20"
       >
         <div class="w-full md:w-1/2 lg:w-1/4 max-w-[280px]">
-          <div class="aspect-square rounded-2xl overflow-hidden shadow-xl">
+          <div
+            class="aspect-square rounded-2xl overflow-hidden shadow-xl bg-slate-200"
+          >
             <img
               src="./assets/perfil-noeliza.webp"
               alt="Noeliza - Especialista en Marketing Technology y Analítica Web"
-              class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500"
+              class="w-full h-full object-cover grayscale opacity-0 transition-all duration-1000 transform translate-y-4"
+              loading="lazy"
+              id="image-reveal"
+              decoding="async"
             />
           </div>
         </div>
@@ -275,7 +300,9 @@
     <section id="servicios" class="py-24 bg-slate-50">
       <div class="container mx-auto px-6">
         <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          <h2
+            class="text-3xl md:text-4xl font-bold mb-4 leading-snug md:leading-tight"
+          >
             Servicios de Marketing Technology y Analítica Web
           </h2>
           <p class="text-slate-500 max-w-2xl mx-auto">
@@ -604,11 +631,11 @@
               >LinkedIn</a
             >
             <a
-              href="mailto:hola@noeliza.com"
+              href="mailto:hello@noeliza.com"
               class="text-slate-900 hover:text-brand-primary underline"
               data-track-event="social_click"
               data-track-location="footer_email"
-              >hola@noeliza.com</a
+              >hello@noeliza.com</a
             >
           </div>
         </div>
@@ -685,11 +712,109 @@
             </svg>
           </a>
         </div>
+        <div
+          class="text-sm mt-8 space-x-4 text-slate-400 flex justify-center items-center"
+        >
+          <a
+            href="./privacidad.html"
+            class="hover:text-brand-primary transition-colors"
+            >Política de Privacidad</a
+          >
+          <span class="text-slate-200">|</span>
+          <button
+            id="open-cookie-settings"
+            class="hover:text-brand-primary transition-colors cursor-pointer outline-none"
+          >
+            Configuración de cookies
+          </button>
+        </div>
       </div>
     </footer>
 
-    <script src="./js/menu.js" defer></script>
+    <div
+      id="cookie-banner"
+      class="fixed bottom-4 left-4 right-4 md:left-auto md:max-w-md bg-white border border-slate-200 shadow-2xl rounded-2xl p-6 z-[100] hidden"
+    >
+      <div class="flex items-start gap-4">
+        <div
+          class="bg-brand-primary/10 p-2 rounded-lg text-brand-primary shrink-0"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+            ></path>
+          </svg>
+        </div>
+        <div class="w-full">
+          <h4 class="font-bold text-slate-800 text-sm mb-2">
+            Configuración de Privacidad
+          </h4>
+          <p class="text-xs text-slate-500 leading-relaxed mb-4">
+            Utilizo cookies para analizar el tráfico y optimizar tu experiencia.
+            Puedes leer más en mi
+            <a
+              href="./privacidad.html"
+              class="underline hover:text-brand-primary"
+              >política de privacidad</a
+            >.
+          </p>
+          <p class="text-xs text-slate-500 leading-relaxed mb-4">
+            Personaliza cómo prefieres que trate tus datos:
+          </p>
+
+          <div class="space-y-3 mb-6">
+            <label class="flex items-center justify-between cursor-pointer">
+              <span class="text-[11px] font-semibold text-slate-700"
+                >Analítica</span
+              >
+              <input
+                type="checkbox"
+                id="check-analytics"
+                checked
+                class="w-4 h-4 text-brand-primary rounded border-slate-300 focus:ring-brand-primary"
+              />
+            </label>
+            <label class="flex items-center justify-between cursor-pointer">
+              <span class="text-[11px] font-semibold text-slate-700"
+                >Marketing</span
+              >
+              <input
+                type="checkbox"
+                id="check-marketing"
+                checked
+                class="w-4 h-4 text-brand-primary rounded border-slate-300 focus:ring-brand-primary"
+              />
+            </label>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <button
+              id="btn-save"
+              class="w-full bg-brand-primary text-white text-xs font-bold px-4 py-2.5 rounded-lg hover:bg-opacity-90 transition-all"
+            >
+              Guardar preferencias
+            </button>
+            <button
+              id="btn-accept-all"
+              class="w-full bg-slate-100 text-slate-700 text-xs font-bold px-4 py-2 rounded-lg hover:bg-slate-200 transition-all"
+            >
+              Aceptar todas
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/main.js" defer></script>
     <script src="./js/tracking.js" defer></script>
     <script src="./js/form-handler.js" defer></script>
+    <script src="./js/consent.js"></script>
   </body>
 </html>

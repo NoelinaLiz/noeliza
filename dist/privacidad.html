@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noeliza | Política de Privacidad</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
+    <meta name="robots" content="noindex, nofollow" />
+    <script>
+      // Definimos la base para que el banner funcione
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      // Estado inicial: revisamos si ya hay algo en localStorage
+      if (!localStorage.getItem("cookie-consent")) {
+        gtag("consent", "default", {
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          analytics_storage: "denied",
+          wait_for_update: 500,
+        });
+      } else {
+        const consent = JSON.parse(localStorage.getItem("cookie-consent"));
+        gtag("consent", "default", consent);
+      }
+    </script>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-5XBZSB7");
+    </script>
+    <!-- End Google Tag Manager -->
+  </head>
+  <body class="bg-white text-slate-800 antialiased">
+    <nav class="py-6 border-b border-slate-100">
+      <div class="container mx-auto px-6 flex justify-between items-center">
+        <a href="#" class="h-8 md:h-10 flex items-center">
+          <img
+            src="./assets/logo-full.webp"
+            alt="Noeliza Logo"
+            class="h-full w-auto"
+          />
+        </a>
+        <a
+          href="./index.html"
+          class="text-sm font-semibold text-brand-primary hover:underline"
+        >
+          ← Volver al inicio
+        </a>
+      </div>
+    </nav>
+
+    <main class="py-16 md:py-24">
+      <div class="container mx-auto px-6 max-w-3xl">
+        <h1 class="text-4xl font-bold mb-8 tracking-tight text-slate-900">
+          Política de Privacidad
+        </h1>
+
+        <p class="text-slate-500 mb-12 leading-relaxed">
+          Última actualización: 30 de diciembre de 2025. <br />
+          Esta política describe cómo trato tus datos personales y las
+          tecnologías de medición que utilizo para garantizar una navegación
+          segura y respetuosa con tu privacidad.
+        </p>
+
+        <section class="space-y-12">
+          <div>
+            <h2 class="text-xl font-bold mb-4 text-slate-900">
+              1. Responsable del Tratamiento
+            </h2>
+            <p class="text-slate-600 leading-relaxed">
+              El responsable de los datos recogidos en este sitio web es
+              <strong>Noelia Lizárraga</strong>. Puedes contactarme para
+              cualquier duda o ejercicio de tus derechos en:
+              <a
+                href="mailto:tu-email@dominio.com"
+                class="text-brand-primary underline"
+                >noe@noeliza.com</a
+              >.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold mb-4 text-slate-900">
+              2. Información que recolectamos
+            </h2>
+            <p class="text-slate-600 mb-4">
+              Tratamos los datos estrictamente necesarios para ofrecer mis
+              servicios:
+            </p>
+            <ul class="list-disc ml-6 space-y-2 text-slate-600">
+              <li>
+                <strong>Formulario de Contacto:</strong> Nombre, email y tipo de
+                servicio solicitado. Estos datos se utilizan exclusivamente para
+                responder a tu consulta y se almacenan en una base de datos
+                privada (Google Sheets).
+              </li>
+              <li>
+                <strong>Datos de Navegación:</strong> Si otorgas tu
+                consentimiento, utilizamos cookies para analizar el tráfico de
+                forma agregada y anónima.
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+            <h2 class="text-xl font-bold mb-4 text-slate-900">
+              3. Arquitectura "Privacy-First"
+            </h2>
+            <p class="text-slate-600 mb-4">
+              Como especialista en <strong>Marketing Technology</strong>, esta
+              web implementa <strong>Google Consent Mode v2</strong>. Esto
+              significa que:
+            </p>
+            <ul class="list-disc ml-6 space-y-2 text-slate-600 italic">
+              <li>
+                Si rechazas las cookies de analítica, GA4 no almacenará
+                identificadores en tu navegador.
+              </li>
+              <li>
+                Utilizamos señales anónimas (pings) para medir el rendimiento
+                del sitio sin comprometer tu identidad personal.
+              </li>
+              <li>
+                Respetamos tus preferencias de forma granular (Analítica vs.
+                Marketing).
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold mb-4 text-slate-900">
+              4. Detalle de Cookies
+            </h2>
+            <div class="overflow-x-auto">
+              <table
+                class="w-full text-left text-sm text-slate-600 border-collapse"
+              >
+                <thead>
+                  <tr class="border-b border-slate-200">
+                    <th class="py-3 font-bold text-slate-900">Nombre</th>
+                    <th class="py-3 font-bold text-slate-900">Proveedor</th>
+                    <th class="py-3 font-bold text-slate-900">Finalidad</th>
+                    <th class="py-3 font-bold text-slate-900">Expiración</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  <tr>
+                    <td class="py-3 font-mono text-[11px]">_ga</td>
+                    <td class="py-3 text-[12px]">Google Analytics</td>
+                    <td class="py-3 text-[12px]">
+                      ID único de usuario anónimo
+                    </td>
+                    <td class="py-3 text-[12px]">2 años</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 font-mono text-[11px]">cookie-consent</td>
+                    <td class="py-3 text-[12px]">Propia</td>
+                    <td class="py-3 text-[12px]">
+                      Almacena tu decisión de privacidad
+                    </td>
+                    <td class="py-3 text-[12px]">6 meses</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 font-mono text-[11px]">_ga_XXXXX</td>
+                    <td class="py-3 text-[12px]">Google Analytics</td>
+                    <td class="py-3 text-[12px]">
+                      Mantenimiento de estado de sesión
+                    </td>
+                    <td class="py-3 text-[12px]">2 años</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold mb-4 text-slate-900">
+              5. Tus Derechos
+            </h2>
+            <p class="text-slate-600 leading-relaxed">
+              Tienes derecho a acceder, rectificar, limitar el tratamiento o
+              suprimir tus datos. Para ello, puedes contactarme en cualquier
+              momento. Además, puedes revocar tu consentimiento sobre las
+              cookies directamente desde el banner de configuración de este
+              sitio.
+            </p>
+          </div>
+        </section>
+
+        <div
+          class="mt-20 pt-8 border-t border-slate-100 text-center text-slate-400 text-sm"
+        >
+          <p>© 2026 Noeliza</p>
+        </div>
+        <div
+          class="text-sm mt-8 space-x-4 text-slate-400 flex justify-center items-center"
+        >
+          <button
+            id="open-cookie-settings"
+            class="hover:text-brand-primary transition-colors cursor-pointer outline-none"
+          >
+            Configuración de cookies
+          </button>
+        </div>
+      </div>
+    </main>
+    <div
+      id="cookie-banner"
+      class="fixed bottom-4 left-4 right-4 md:left-auto md:max-w-md bg-white border border-slate-200 shadow-2xl rounded-2xl p-6 z-[100] hidden"
+    >
+      <div class="flex items-start gap-4">
+        <div
+          class="bg-brand-primary/10 p-2 rounded-lg text-brand-primary shrink-0"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+            ></path>
+          </svg>
+        </div>
+        <div class="w-full">
+          <h4 class="font-bold text-slate-800 text-sm mb-2">
+            Configuración de Privacidad
+          </h4>
+          <p class="text-xs text-slate-500 leading-relaxed mb-4">
+            Utilizo cookies para analizar el tráfico y optimizar tu experiencia.
+            Puedes leer más en mi
+            <a
+              href="./privacidad.html"
+              class="underline hover:text-brand-primary"
+              >política de privacidad</a
+            >.
+          </p>
+          <p class="text-xs text-slate-500 leading-relaxed mb-4">
+            Personaliza cómo prefieres que trate tus datos:
+          </p>
+
+          <div class="space-y-3 mb-6">
+            <label class="flex items-center justify-between cursor-pointer">
+              <span class="text-[11px] font-semibold text-slate-700"
+                >Analítica</span
+              >
+              <input
+                type="checkbox"
+                id="check-analytics"
+                checked
+                class="w-4 h-4 text-brand-primary rounded border-slate-300 focus:ring-brand-primary"
+              />
+            </label>
+            <label class="flex items-center justify-between cursor-pointer">
+              <span class="text-[11px] font-semibold text-slate-700"
+                >Marketing</span
+              >
+              <input
+                type="checkbox"
+                id="check-marketing"
+                checked
+                class="w-4 h-4 text-brand-primary rounded border-slate-300 focus:ring-brand-primary"
+              />
+            </label>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <button
+              id="btn-save"
+              class="w-full bg-brand-primary text-white text-xs font-bold px-4 py-2.5 rounded-lg hover:bg-opacity-90 transition-all"
+            >
+              Guardar preferencias
+            </button>
+            <button
+              id="btn-accept-all"
+              class="w-full bg-slate-100 text-slate-700 text-xs font-bold px-4 py-2 rounded-lg hover:bg-slate-200 transition-all"
+            >
+              Aceptar todas
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/consent.js" defer></script>
+  </body>
+</html>
