@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Página no encontrada | Noeliza</title>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-5XBZSB7");
+    </script>
+    <!-- End Google Tag Manager -->
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body
+    class="bg-white text-slate-900 font-['Inter',sans-serif] min-h-screen flex flex-col"
+  >
+    <nav
+      class="w-full bg-white border-b border-slate-100 h-20 flex items-center"
+    >
+      <div class="max-w-6xl mx-auto px-6 w-full">
+        <a href="/" class="h-8 flex items-center">
+          <img
+            src="./assets/logo-full.webp"
+            alt="Noeliza Logo"
+            class="h-full w-auto"
+          />
+        </a>
+      </div>
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center px-6 py-20">
+      <div class="max-w-xl text-center">
+        <h1
+          class="text-8xl md:text-9xl font-extrabold mb-4 select-none text-transparent bg-clip-text bg-gradient-to-b from-slate-300 to-slate-50"
+        >
+          404
+        </h1>
+
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900">
+          Parece que estos datos se han perdido 😓
+        </h2>
+
+        <p
+          class="text-lg text-slate-600 mb-10 leading-relaxed max-w-lg mx-auto"
+        >
+          La página que buscas no existe o ha sido movida. Como buena Marketer,
+          prefiero que no pierdas tiempo en una ruta sin salida.
+        </p>
+
+        <a
+          href="/"
+          class="bg-brand-primary text-white px-10 py-4 rounded-full font-bold hover:bg-brand-hover transition-all shadow-lg inline-block"
+        >
+          Volver al inicio
+        </a>
+      </div>
+    </main>
+
+    <footer class="py-12 border-t border-slate-100 text-center">
+      <p class="text-[10px] text-slate-400 uppercase tracking-[0.2em]">
+        &copy; 2026 Noeliza - Error 404
+      </p>
+    </footer>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "error_404",
+        page_path: window.location.pathname,
+        referrer: document.referrer,
+      });
+    </script>
+  </body>
+</html>

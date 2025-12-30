@@ -16,7 +16,8 @@ window.dataLayer = window.dataLayer || [];
 
         // Realizar el push al dataLayer con el esquema estándar
         window.dataLayer.push({
-          event: eventName,
+          event: "trackEvent",
+          event_name: eventName,
           event_info: {
             location: eventLocation,
             element_text: trackElement.innerText.trim() || "no_text",
