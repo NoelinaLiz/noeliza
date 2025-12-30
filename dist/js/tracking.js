@@ -13,20 +13,34 @@ window.dataLayer = window.dataLayer || [];
         // Extraer los valores de los atributos data-
         const eventName = trackElement.getAttribute("data-track-event");
         const eventLocation = trackElement.getAttribute("data-track-location");
+        const eventElement = trackElement.getAttribute("data-track-element");
+        const eventSection = trackElement.getAttribute("data-track-section");
 
-        // Realizar el push al dataLayer con el esquema estándar
+        // 1. Creamos un objeto con toda la información potencial
+        const rawInfo = {
+          location: eventLocation,
+          element: eventElement,
+          section: eventSection,
+          text: trackElement.innerText.trim().toLowerCase(),
+          timestamp: new Date().toISOString(),
+        };
+
+        // 2. FILTRADO: Solo conservamos las propiedades que tienen un valor real y no están vacías
+        const cleanInfo = Object.fromEntries(
+          Object.entries(rawInfo).filter(
+            ([_, value]) => value && value.trim() !== ""
+          )
+        );
+
+        // 3. Realizar el push al dataLayer usando el objeto limpio
         window.dataLayer.push({
           event: "trackEvent",
           event_name: eventName,
-          event_info: {
-            location: eventLocation,
-            element_text: trackElement.innerText.trim() || "no_text",
-            timestamp: new Date().toISOString(),
-          },
+          event_info: cleanInfo,
         });
 
         // Opcional: Log en consola para depuración local
-        console.log(`Tracking Push: ${eventName} desde ${eventLocation}`);
+        //console.log(`Tracking Push (Limpio): ${eventName}`, cleanInfo);
       }
     },
     true

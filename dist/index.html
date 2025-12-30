@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Noeliza | Marketing Technologist | Especialista en GA4 y GTM</title>
     <script>
-      // 1. Definir el estado inicial (Denegado por defecto)
+      // 1. Definir el estado inicial de consent (Denegado por defecto)
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
@@ -107,7 +107,14 @@
       <div
         class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between"
       >
-        <a href="#" class="h-8 md:h-10 flex items-center">
+        <a
+          href="#"
+          class="h-8 md:h-10 flex items-center"
+          data-track-event="navigation"
+          data-track-location="main_nav"
+          data-track-element="main_logo"
+          data-track-section="header"
+        >
           <img
             src="./assets/logo-full.webp"
             alt="Noeliza Logo"
@@ -121,12 +128,25 @@
           <a
             href="#servicios"
             class="hin/tu-perfilover:text-brand-primary transition-colors"
+            data-track-event="navigation"
+            data-track-location="main_nav"
+            data-track-section="header"
             >Servicios</a
           >
-          <a href="#sobre-mi" class="hover:text-brand-primary transition-colors"
+          <a
+            href="#sobre-mi"
+            class="hover:text-brand-primary transition-colors"
+            data-track-event="navigation"
+            data-track-location="main_nav"
+            data-track-section="header"
             >Sobre mí</a
           >
-          <a href="#contacto" class="hover:text-brand-primary transition-colors"
+          <a
+            href="#contacto"
+            class="hover:text-brand-primary transition-colors"
+            data-track-event="navigation"
+            data-track-location="main_nav"
+            data-track-section="header"
             >Trabajemos</a
           >
         </div>
