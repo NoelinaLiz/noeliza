@@ -1,0 +1,5 @@
+# Forzar que JavaScript sea detectado incluso en carpetas ignoradas
+dist/js/*.js linguist-detectable=true
+
+# Ignorar el CSS generado por Tailwind
+dist/css/*.css linguist-vendored
