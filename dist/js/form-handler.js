@@ -48,6 +48,7 @@ form.addEventListener("submit", e => {
           user_type: "lead",
         },
       });
+      window.dataLayer.push({ event_info: null }); // Reset para evitar pollution del Data Model
     })
     .catch(error => {
       console.error("Error!", error.message);

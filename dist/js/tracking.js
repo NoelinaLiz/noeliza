@@ -16,7 +16,10 @@ window.dataLayer = window.dataLayer || [];
         const eventElement = trackElement.getAttribute("data-track-element");
         const eventSection = trackElement.getAttribute("data-track-section");
 
-        // 1. Creamos un objeto con toda la información potencial
+        // Reset para evitar pollution del Data Model
+        window.dataLayer.push({ event_info: null });
+
+        // Creación del objeto inicial de event info
         const rawInfo = {
           location: eventLocation,
           element: eventElement,
@@ -25,22 +28,19 @@ window.dataLayer = window.dataLayer || [];
           timestamp: new Date().toISOString(),
         };
 
-        // 2. FILTRADO: Solo conservamos las propiedades que tienen un valor real y no están vacías
+        // FILTRADO: Solo conservamos las propiedades que tienen un valor real y no están vacías
         const cleanInfo = Object.fromEntries(
           Object.entries(rawInfo).filter(
             ([_, value]) => value && value.trim() !== ""
           )
         );
 
-        // 3. Realizar el push al dataLayer usando el objeto limpio
+        // Push al dataLayer usando el objeto limpio
         window.dataLayer.push({
           event: "trackEvent",
           event_name: eventName,
           event_info: cleanInfo,
         });
-
-        // Opcional: Log en consola para depuración local
-        //console.log(`Tracking Push (Limpio): ${eventName}`, cleanInfo);
       }
     },
     true
