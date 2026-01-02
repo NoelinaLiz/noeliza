@@ -50,7 +50,14 @@
   <body class="bg-white text-slate-800 antialiased">
     <nav class="py-6 border-b border-slate-100">
       <div class="container mx-auto px-6 flex justify-between items-center">
-        <a href="#" class="h-8 md:h-10 flex items-center">
+        <a
+          href="./"
+          class="h-8 md:h-10 flex items-center"
+          data-track-event="navigation_click"
+          data-track-location="main_nav"
+          data-track-element="main_logo"
+          data-track-section="header"
+        >
           <img
             src="./assets/logo-full.webp"
             alt="Noeliza Logo"
@@ -60,6 +67,9 @@
         <a
           href="./index.html"
           class="text-sm font-semibold text-brand-primary hover:underline"
+          data-track-event="navigation_click"
+          data-track-location="main_nav"
+          data-track-section="header"
         >
           ← Volver al inicio
         </a>
@@ -215,6 +225,9 @@
           <button
             id="open-cookie-settings"
             class="hover:text-brand-primary transition-colors cursor-pointer outline-none"
+            data-track-event="navigation_click"
+            data-track-location="footer_nav"
+            data-track-section="footer"
           >
             Configuración de cookies
           </button>
@@ -303,5 +316,6 @@
       </div>
     </div>
     <script src="./js/consent.js" defer></script>
+    <script src="./js/tracking.js" defer></script>
   </body>
 </html>

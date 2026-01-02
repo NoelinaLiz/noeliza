@@ -110,7 +110,7 @@
         <a
           href="#"
           class="h-8 md:h-10 flex items-center"
-          data-track-event="navigation"
+          data-track-event="navigation_click"
           data-track-location="main_nav"
           data-track-element="main_logo"
           data-track-section="header"
@@ -127,8 +127,8 @@
         >
           <a
             href="#servicios"
-            class="hin/tu-perfilover:text-brand-primary transition-colors"
-            data-track-event="navigation"
+            class="hin/tu-perfil hover:text-brand-primary transition-colors"
+            data-track-event="navigation_click"
             data-track-location="main_nav"
             data-track-section="header"
             >Servicios</a
@@ -136,7 +136,7 @@
           <a
             href="#sobre-mi"
             class="hover:text-brand-primary transition-colors"
-            data-track-event="navigation"
+            data-track-event="navigation_click"
             data-track-location="main_nav"
             data-track-section="header"
             >Sobre mí</a
@@ -144,7 +144,7 @@
           <a
             href="#contacto"
             class="hover:text-brand-primary transition-colors"
-            data-track-event="navigation"
+            data-track-event="navigation_click"
             data-track-location="main_nav"
             data-track-section="header"
             >Trabajemos</a
@@ -209,13 +209,28 @@
         <nav
           class="flex flex-col space-y-8 text-2xl font-medium uppercase tracking-widest"
         >
-          <a href="#servicios" class="menu-link hover:text-brand-primary"
+          <a
+            href="#servicios"
+            class="menu-link hover:text-brand-primary"
+            data-track-event="navigation_click"
+            data-track-location="main_nav"
+            data-track-section="mobile_menu"
             >Servicios</a
           >
-          <a href="#sobre-mi" class="menu-link hover:text-brand-primary"
+          <a
+            href="#sobre-mi"
+            class="menu-link hover:text-brand-primary"
+            data-track-event="navigation_click"
+            data-track-location="main_nav"
+            data-track-section="mobile_menu"
             >Sobre mí</a
           >
-          <a href="#contacto" class="menu-link hover:text-brand-primary"
+          <a
+            href="#contacto"
+            class="menu-link hover:text-brand-primary"
+            data-track-event="navigation_click"
+            data-track-location="main_nav"
+            data-track-section="mobile_menu"
             >Trabajemos</a
           >
         </nav>
@@ -242,7 +257,8 @@
             href="#contacto"
             class="bg-slate-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-slate-800 transition-all shadow-lg text-center"
             data-track-event="cta_click"
-            data-track-location="hero_primary"
+            data-track-section="hero"
+            data-track-location="cta_primary"
           >
             Hablemos de tu proyecto
           </a>
@@ -250,7 +266,8 @@
             href="#servicios"
             class="border border-slate-200 px-8 py-4 rounded-full font-semibold hover:bg-slate-50 transition-all text-center"
             data-track-event="cta_click"
-            data-track-location="hero_secondary"
+            data-track-section="hero"
+            data-track-location="cta_secondary"
           >
             Ver servicios
           </a>
@@ -363,9 +380,11 @@
               href="#contacto"
               class="text-brand-primary font-bold inline-flex items-center group-hover:translate-x-2 transition-transform"
               data-track-event="service_click"
-              data-track-location="pack_01"
+              data-track-section="services"
+              data-track-location="pack 01"
+              data-track-element="cimientos digitales"
             >
-              Saber más <span class="ml-2">→</span>
+              Saber más
             </a>
           </div>
 
@@ -400,9 +419,11 @@
               href="#contacto"
               class="text-brand-primary font-bold inline-flex items-center group-hover:translate-x-2 transition-transform"
               data-track-event="service_click"
-              data-track-location="pack_02"
+              data-track-section="services"
+              data-track-location="pack 02"
+              data-track-element="visualización pro"
             >
-              Ver ejemplos <span class="ml-2">→</span>
+              Consultar
             </a>
           </div>
 
@@ -437,9 +458,11 @@
               href="#contacto"
               class="text-brand-primary font-bold inline-flex items-center group-hover:translate-x-2 transition-transform"
               data-track-event="service_click"
-              data-track-location="pack_03"
+              data-track-section="services"
+              data-track-location="pack 03"
+              data-track-element="diagnóstico & auditoría técnica"
             >
-              Solicitar auditoría <span class="ml-2">→</span>
+              Solicitar auditoría
             </a>
           </div>
 
@@ -458,12 +481,12 @@
             </p>
             <ul class="space-y-2 mb-8 text-slate-600">
               <li class="flex items-center">
-                <span class="mr-2 text-brand-primary">✓</span> Configuración GTM
-                Server-Side con Stape
+                <span class="mr-2 text-brand-primary">✓</span> Configuración
+                Server-Side GTM
               </li>
               <li class="flex items-center">
-                <span class="mr-2 text-brand-primary">✓</span> API de
-                Conversiones de Meta y Tiktok
+                <span class="mr-2 text-brand-primary">✓</span> CAPI de Meta y
+                Tiktok
               </li>
               <li class="flex items-center">
                 <span class="mr-2 text-brand-primary">✓</span> Exportación
@@ -474,9 +497,11 @@
               href="#contacto"
               class="text-brand-primary font-bold inline-flex items-center group-hover:translate-x-2 transition-transform"
               data-track-event="service_click"
-              data-track-location="pack_04"
+              data-track-section="services"
+              data-track-location="pack 04"
+              data-track-element="advanced martech stack"
             >
-              Consultar <span class="ml-2">→</span>
+              Consultar
             </a>
           </div>
         </div>
@@ -492,8 +517,8 @@
           class="text-slate-400 mb-10 leading-relaxed max-w-2xl mx-auto text-lg"
         >
           Este sitio web cuenta con una arquitectura de medición profesional.
-          Cada clic y navegación está siendo procesado para optimizar mi propia
-          marca personal.
+          Cada click y navegación está siendo recolectado y procesado para
+          optimizar mi propia marca personal.
         </p>
 
         <div
@@ -519,10 +544,11 @@
             href="https://docs.google.com/spreadsheets/d/1KwWESz_NGzhj8DGfiEYpBbDjytmXe3lMMP6kNlA-65Q/edit"
             target="_blank"
             class="inline-block bg-brand-primary text-white px-10 py-4 rounded-full font-bold hover:bg-brand-hover transition-all transform hover:scale-105 shadow-lg active:scale-95"
-            data-track-event="view_tracking_plan"
-            data-track-location="proof_section"
+            data-track-event="cta_click"
+            data-track-section="proof_section"
+            data-track-location="tracking plan"
           >
-            Acceder al Tracking Plan
+            Solicitar acceso
           </a>
         </div>
       </div>
@@ -647,14 +673,16 @@
               href="https://www.linkedin.com/in/noelia-lizarraga/"
               class="text-slate-900 hover:text-brand-primary underline"
               data-track-event="social_click"
-              data-track-location="footer_linkedin"
+              data-track-section="form"
+              data-track-element="LinkedIn"
               >LinkedIn</a
             >
             <a
               href="mailto:hello@noeliza.com"
               class="text-slate-900 hover:text-brand-primary underline"
               data-track-event="social_click"
-              data-track-location="footer_email"
+              data-track-section="form"
+              data-track-element="Email"
               >hello@noeliza.com</a
             >
           </div>
@@ -687,6 +715,9 @@
             href="https://www.linkedin.com/in/noelia-lizarraga/"
             target="_blank"
             class="text-slate-400 hover:text-brand-primary transition-colors"
+            data-track-event="social_click"
+            data-track-section="footer"
+            data-track-element="LinkedIn"
           >
             <span class="sr-only">LinkedIn</span>
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -700,7 +731,8 @@
             target="_blank"
             class="text-slate-400 hover:text-brand-primary transition-all duration-300 transform hover:scale-110"
             data-track-event="social_click"
-            data-track-location="footer_github"
+            data-track-section="footer"
+            data-track-element="GitHub"
           >
             <span class="sr-only">GitHub</span>
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -713,7 +745,8 @@
             href="mailto:noe@noeliza.com"
             class="text-slate-400 hover:text-brand-primary transition-all duration-300 transform hover:scale-110"
             data-track-event="social_click"
-            data-track-location="footer_email"
+            data-track-section="footer"
+            data-track-element="Email"
           >
             <span class="sr-only">Email</span>
             <svg
@@ -738,12 +771,18 @@
           <a
             href="./privacidad.html"
             class="hover:text-brand-primary transition-colors"
+            data-track-event="navigation_click"
+            data-track-location="footer_nav"
+            data-track-section="footer"
             >Política de Privacidad</a
           >
           <span class="text-slate-200">|</span>
           <button
             id="open-cookie-settings"
             class="hover:text-brand-primary transition-colors cursor-pointer outline-none"
+            data-track-event="navigation_click"
+            data-track-location="footer_nav"
+            data-track-section="footer"
           >
             Configuración de cookies
           </button>

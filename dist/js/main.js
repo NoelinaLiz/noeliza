@@ -43,3 +43,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (image) observer.observe(image);
 });
+
+// Mensaje de bienvenida en la consola
+console.log(
+  "%c¡Hola, colega! 🚀",
+  "color: #1887e1; font-size: 20px; font-weight: bold; font-family: sans-serif;"
+);
+
+console.log(
+  "%cSi estás viendo esto, es porque eres una persona con conocimientos técnicos y te gusta ver qué hay 'bajo el capó'. 👀💻\n\n" +
+    "Gracias por visitar mi sitio. He diseñado esta arquitectura pensando en la robustez de los datos y la privacidad (Consent Mode v2 + Data Attributes).\n\n" +
+    "✨ ¿Tienes alguna duda o feedback sobre la implementación?\n" +
+    "📫 Escríbeme directamente a: %cnoe@noeliza.com",
+  "color: #334155; font-size: 14px; line-height: 1.5;",
+  "color: #1887e1; font-weight: bold; text-decoration: underline;"
+);

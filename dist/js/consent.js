@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!localStorage.getItem("cookie-consent")) {
     banner.classList.remove("hidden");
+    window.dataLayer.push({
+      event: "consent_banner_view",
+    });
   }
 
   // Función para actualizar consentimiento
@@ -51,8 +54,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 2. Mostramos el banner
       banner.classList.remove("hidden");
+      window.dataLayer.push({
+        event: "consent_banner_view",
+      });
 
-      // 3. Opcional: Hacer scroll suave hasta el banner si el usuario está muy arriba
+      // Scroll suave hasta el banner si el usuario está muy arriba
       banner.scrollIntoView({ behavior: "smooth", block: "end" });
     });
   }
