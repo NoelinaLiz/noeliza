@@ -35,10 +35,14 @@ form.addEventListener("submit", e => {
       formContainer.classList.add("hidden");
       successMessage.classList.remove("hidden");
 
+      //Unique event ID para deduplicación
+      const uniqueEventId =
+        "noeliza_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9);
       // Envío del evento
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         event: "form_submission_success",
+        event_id: uniqueEventId,
         event_info: {
           service_id: serviceCode,
           service_name: selectedServiceText.toLowerCase(),
