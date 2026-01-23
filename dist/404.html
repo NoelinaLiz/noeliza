@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -46,19 +46,20 @@
         </h1>
 
         <h2 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900">
-          Parece que estos datos se han perdido 😓
+          Parece que esta página no existe 😓
         </h2>
 
         <p
           class="text-lg text-slate-600 mb-10 leading-relaxed max-w-lg mx-auto"
         >
-          La página que buscas no existe o ha sido movida. Como buena Marketer,
-          prefiero que no pierdas tiempo en una ruta sin salida.
+          No quiero que pierdas tiempo en una ruta sin salida.
         </p>
 
         <a
           href="/"
           class="bg-brand-primary text-white px-10 py-4 rounded-full font-bold hover:bg-brand-hover transition-all shadow-lg inline-block"
+          data-track-event="cta_click"
+          data-track-section="404 page"
         >
           Volver al inicio
         </a>
@@ -77,5 +78,6 @@
         event_name: "error_404",
       });
     </script>
+    <script src="./js/tracking.js" defer></script>
   </body>
 </html>
