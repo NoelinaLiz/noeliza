@@ -19,6 +19,8 @@ form.addEventListener("submit", e => {
 
   // Capturamos el servicio seleccionado
   const selectedServiceText = form.elements["servicio"].value; //
+  //Captura del email del usuario
+  const userEmail = form.elements["email"].value;
 
   const serviceCode =
     serviceCodes[selectedServiceText] || "noeliza_service_unknown";
@@ -46,6 +48,7 @@ form.addEventListener("submit", e => {
         event_info: {
           service_id: serviceCode,
           service_name: selectedServiceText.toLowerCase(),
+          email: userEmail,
           timestamp: new Date().toISOString(),
         },
         user_properties: {
