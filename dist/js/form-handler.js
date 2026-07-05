@@ -59,6 +59,7 @@ form.addEventListener("submit", async e => {
           service_id: serviceCode,
           service_name: selectedServiceText.toLowerCase(),
           email: hashedEmail, // SHA-256 Hash
+          language: window.location.pathname.includes("en.html") ? "en" : "es",
           timestamp: new Date().toISOString(),
         },
         user_properties: {

@@ -45,6 +45,7 @@ window.dataLayer = window.dataLayer || [];
           element: eventElement,
           section: eventSection,
           text: trackElement.innerText.trim().toLowerCase(),
+          language: window.location.pathname.includes("en.html") ? "en" : "es",
           timestamp: new Date().toISOString(),
         };
 
