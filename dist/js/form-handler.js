@@ -5,14 +5,6 @@ const btn = document.getElementById("submit-btn");
 const formContainer = document.getElementById("form-container");
 const successMessage = document.getElementById("success-message");
 
-// Diccionario de mapeo: Texto del HTML -> Código de Analytics
-const serviceCodes = {
-  "Oportunidad Laboral / Contratación": "noeliza_contact_job",
-  "Consulta sobre mi Stack técnico": "noeliza_contact_stack",
-  "Colaboración / Charla": "noeliza_contact_collab",
-  "Otro motivo": "noeliza_contact_other",
-};
-
 // Función nativa y asíncrona para hashear el email en SHA-256 en el cliente
 async function sha256(message) {
   const msgBuffer = new TextEncoder().encode(message.trim().toLowerCase());
@@ -26,7 +18,9 @@ form.addEventListener("submit", async e => {
   e.preventDefault();
 
   // Capturar el servicio seleccionado y el email
-  const selectedServiceText = form.elements["servicio"].value;
+  const selectElement = form.elements["servicio"];
+  const serviceCode = selectElement.value || "noeliza_service_unknown";
+  const selectedServiceText = selectElement.options[selectElement.selectedIndex].text;
   const userEmail = form.elements["email"].value;
 
   // Hashear el email para cumplir con las normativas PII de GA4/Meta
@@ -37,9 +31,6 @@ form.addEventListener("submit", async e => {
     console.error("Error al hashear el email:", err);
     hashedEmail = "hashing_failed";
   }
-
-  const serviceCode =
-    serviceCodes[selectedServiceText] || "noeliza_service_unknown";
 
   // Cambiar estado del botón
   btn.disabled = true;
