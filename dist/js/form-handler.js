@@ -7,11 +7,10 @@ const successMessage = document.getElementById("success-message");
 
 // Diccionario de mapeo: Texto del HTML -> Código de Analytics
 const serviceCodes = {
-  "Cimientos Digitales: Implementación Profesional de GA4 y GTM":
-    "noeliza_service_01",
-  "Visualización Pro: Dashboards en Looker Studio": "noeliza_service_02",
-  "Diagnóstico: Auditoría de Analítica Técnica": "noeliza_service_03",
-  "Advanced MarTech Stack: Infraestructura & Data": "noeliza_service_04",
+  "Oportunidad Laboral / Contratación": "noeliza_contact_job",
+  "Consulta sobre mi Stack técnico": "noeliza_contact_stack",
+  "Colaboración / Charla": "noeliza_contact_collab",
+  "Otro motivo": "noeliza_contact_other",
 };
 
 // Función nativa y asíncrona para hashear el email en SHA-256 en el cliente

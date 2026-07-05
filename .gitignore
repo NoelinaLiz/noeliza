@@ -15,3 +15,6 @@ Thumbs.db
 
 # Variables de entorno
 .env
+
+# Archivo local del proxy de Cloudflare (ignorado por seguridad y orden)
+reverse-proxy.js
