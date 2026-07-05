@@ -18,3 +18,4 @@ Thumbs.db
 
 # Archivo local del proxy de Cloudflare (ignorado por seguridad y orden)
 reverse-proxy.js
+tracking-plan.md
