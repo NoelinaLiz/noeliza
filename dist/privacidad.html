@@ -4,21 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Noeliza | Política de Privacidad</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./css/style.css" />
-    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
-    <meta name="robots" content="noindex, nofollow" />
+    
+    <!-- Configuración inicial de Consentimiento -->
     <script>
-      // Definimos la base para que el banner funcione
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
 
-      // Estado inicial: revisamos si ya hay algo en localStorage
       if (!localStorage.getItem("cookie-consent")) {
         gtag("consent", "default", {
           ad_storage: "denied",
@@ -32,7 +25,8 @@
         gtag("consent", "default", consent);
       }
     </script>
-     <!-- Google Tag Manager -->
+    
+    <!-- Google Tag Manager a través del Proxy Inverso Cloudflare -->
     <script>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
@@ -45,284 +39,107 @@
         f.parentNode.insertBefore(j, f);
       })(window, document, "script", "dataLayer", "GTM-5XBZSB7");
     </script>
-    <!-- End Google Tag Manager -->
-    <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/gtm.js?id=GTM-5XBZSB7"
-        height="0"
-        width="0"
-        style="display: none; visibility: hidden"
-      ></iframe
-    ></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    <nav class="py-6 border-b border-slate-100">
-      <div class="container mx-auto px-6 flex justify-between items-center">
-        <a
-          href="./"
-          class="h-8 md:h-10 flex items-center"
-          data-track-event="navigation_click"
-          data-track-location="main_nav"
-          data-track-element="main_logo"
-          data-track-section="header"
-        >
-          <img
-            src="./assets/logo-full.webp"
-            alt="Noeliza Logo"
-            class="h-full w-auto"
-          />
+    
+    <link rel="stylesheet" href="./css/style.css" />
+    
+    <!-- Google Fonts: Outfit e Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
+  </head>
+  
+  <body class="bg-slate-50/50 text-slate-800 font-sans antialiased selection:bg-brand-primary/10 selection:text-brand-primary">
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/noscript.html?id=GTM-5XBZSB7" height="0" width="0" style="display: none; visibility: hidden"></iframe>
+    </noscript>
+
+    <!-- Nav -->
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-slate-200/60 h-20 flex items-center">
+      <div class="max-w-6xl mx-auto px-6 w-full flex justify-between items-center">
+        <a href="/" class="h-8 flex items-center" data-track-event="navigation_click" data-track-location="main_nav" data-track-element="main_logo" data-track-section="header">
+          <img src="./assets/logo-full.webp" alt="Noeliza Logo" class="h-full w-auto" />
         </a>
-        <a
-          href="./index.html"
-          class="text-sm font-semibold text-brand-primary hover:underline"
-          data-track-event="navigation_click"
-          data-track-location="main_nav"
-          data-track-section="header"
-        >
+        <a href="./" class="text-xs font-semibold text-brand-primary hover:underline" data-track-event="navigation_click" data-track-location="main_nav" data-track-section="header">
           ← Volver al inicio
         </a>
       </div>
     </nav>
 
-    <main class="py-16 md:py-24">
-      <div class="container mx-auto px-6 max-w-3xl">
-        <h1 class="text-4xl font-bold mb-8 tracking-tight text-slate-900">
+    <!-- Main Content -->
+    <main class="pt-32 pb-24 px-6 bg-grid-pattern">
+      <div class="max-w-3xl mx-auto bg-white border border-slate-200/60 p-8 md:p-12 rounded-2xl shadow-sm relative z-10">
+        <h1 class="text-3xl font-extrabold font-display mb-6 tracking-tight text-slate-900">
           Política de Privacidad
         </h1>
 
-        <p class="text-slate-500 mb-12 leading-relaxed">
-          Última actualización: 30 de diciembre de 2025. <br />
-          Esta política describe cómo trato tus datos personales y las
-          tecnologías de medición que utilizo para garantizar una navegación
-          segura y respetuosa con tu privacidad.
+        <p class="text-xs text-slate-400 mb-10 leading-relaxed">
+          Última actualización: 5 de julio de 2026. <br />
+          Esta política describe cómo trato tus datos personales y las tecnologías de medición que utilizo para garantizar una navegación segura y respetuosa con tu privacidad.
         </p>
 
-        <section class="space-y-12">
+        <section class="space-y-10 text-sm text-slate-650 leading-relaxed">
           <div>
-            <h2 class="text-xl font-bold mb-4 text-slate-900">
-              1. Responsable del Tratamiento
-            </h2>
-            <p class="text-slate-600 leading-relaxed">
-              El responsable de los datos recogidos en este sitio web es
-              <strong>Noelia Lizárraga</strong>. Puedes contactarme para
-              cualquier duda o ejercicio de tus derechos en:
-              <a
-                href="mailto:tu-email@dominio.com"
-                class="text-brand-primary underline"
-                >noe@noeliza.com</a
-              >.
+            <h2 class="text-lg font-bold font-display mb-3 text-slate-900">1. Responsable del Tratamiento</h2>
+            <p>
+              El responsable de los datos recogidos en este sitio web es <strong>Noelia Lizárraga</strong>. Puedes contactarme para cualquier duda, consulta o ejercicio de tus derechos de privacidad en <a href="mailto:noe@noeliza.com" class="text-brand-primary underline">noe@noeliza.com</a>.
             </p>
           </div>
 
           <div>
-            <h2 class="text-xl font-bold mb-4 text-slate-900">
-              2. Información que recolectamos
-            </h2>
-            <p class="text-slate-600 mb-4">
-              Tratamos los datos estrictamente necesarios para ofrecer mis
-              servicios:
+            <h2 class="text-lg font-bold font-display mb-3 text-slate-900">2. Información que recolectamos</h2>
+            <p class="mb-3">
+              Trato únicamente la información estrictamente necesaria para interactuar y evaluar colaboraciones profesionales:
             </p>
-            <ul class="list-disc ml-6 space-y-2 text-slate-600">
+            <ul class="list-disc ml-6 space-y-2">
               <li>
-                <strong>Formulario de Contacto:</strong> Nombre, email y tipo de
-                servicio solicitado. Estos datos se utilizan exclusivamente para
-                responder a tu consulta y se almacenan en una base de datos
-                privada (Google Sheets).
+                <strong>Formulario de Contacto:</strong> Nombre, dirección de correo electrónico, URL opcional y mensaje. Estos datos se procesan y almacenan en una base de datos privada en Google Sheets mediante Google Apps Script.
               </li>
               <li>
-                <strong>Datos de Navegación:</strong> Si otorgas tu
-                consentimiento, utilizamos cookies para analizar el tráfico de
-                forma agregada y anónima.
+                <strong>Datos de Navegación:</strong> Si otorgas tu consentimiento libre y explícito, utilizamos cookies para registrar el flujo del usuario en el sitio y optimizar su diseño de forma agregada.
               </li>
             </ul>
           </div>
 
-          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
-            <h2 class="text-xl font-bold mb-4 text-slate-900">
-              3. Arquitectura "Privacy-First"
-            </h2>
-            <p class="text-slate-600 mb-4">
-              Como especialista en <strong>Marketing Technology</strong>, esta
-              web implementa <strong>Google Consent Mode v2</strong>. Esto
-              significa que:
+          <div class="bg-brand-primary/5 p-6 rounded-xl border border-brand-primary/10">
+            <h2 class="text-base font-bold font-display mb-3 text-slate-900">3. Arquitectura Privacy-First & Cero PII</h2>
+            <p class="mb-3">
+              Como especialista en Marketing Technology, este sitio web incorpora las mejores prácticas internacionales de seguridad de la información:
             </p>
-            <ul class="list-disc ml-6 space-y-2 text-slate-600 italic">
+            <ul class="list-disc ml-6 space-y-2 italic text-xs">
               <li>
-                Si rechazas las cookies de analítica, GA4 no almacenará
-                identificadores en tu navegador.
+                <strong>Google Consent Mode v2:</strong> Si rechazas las cookies de analítica, GA4 no almacena cookies de seguimiento de usuario. Las señales enviadas a Google son estrictamente anónimas y no identificativas.
               </li>
               <li>
-                Utilizamos señales anónimas (pings) para medir el rendimiento
-                del sitio sin comprometer tu identidad personal.
+                <strong>Hasheo Criptográfico en Cliente:</strong> En cumplimiento estricto con las políticas de PII (Personally Identifiable Information), tu email se cifra automáticamente en el navegador usando el algoritmo <strong>SHA-256</strong> antes de registrarse en el dataLayer. Tus datos de contacto nunca son enviados en texto plano.
               </li>
               <li>
-                Respetamos tus preferencias de forma granular (Analítica vs.
-                Marketing).
+                <strong>Proxy Inverso Cloudflare Workers:</strong> Los scripts de analítica se sirven desde nuestro subdominio propio para aislar los datos del cliente, limitar filtraciones a terceras partes y mejorar el rendimiento de carga del script.
               </li>
             </ul>
           </div>
 
           <div>
-            <h2 class="text-xl font-bold mb-4 text-slate-900">
-              4. Detalle de Cookies
-            </h2>
-            <div class="overflow-x-auto">
-              <table
-                class="w-full text-left text-sm text-slate-600 border-collapse"
-              >
-                <thead>
-                  <tr class="border-b border-slate-200">
-                    <th class="py-3 font-bold text-slate-900">Nombre</th>
-                    <th class="py-3 font-bold text-slate-900">Proveedor</th>
-                    <th class="py-3 font-bold text-slate-900">Finalidad</th>
-                    <th class="py-3 font-bold text-slate-900">Expiración</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-100">
-                  <tr>
-                    <td class="py-3 font-mono text-[11px]">_ga</td>
-                    <td class="py-3 text-[12px]">Google Analytics</td>
-                    <td class="py-3 text-[12px]">
-                      ID único de usuario anónimo
-                    </td>
-                    <td class="py-3 text-[12px]">2 años</td>
-                  </tr>
-                  <tr>
-                    <td class="py-3 font-mono text-[11px]">cookie-consent</td>
-                    <td class="py-3 text-[12px]">Propia</td>
-                    <td class="py-3 text-[12px]">
-                      Almacena tu decisión de privacidad
-                    </td>
-                    <td class="py-3 text-[12px]">6 meses</td>
-                  </tr>
-                  <tr>
-                    <td class="py-3 font-mono text-[11px]">_ga_XXXXX</td>
-                    <td class="py-3 text-[12px]">Google Analytics</td>
-                    <td class="py-3 text-[12px]">
-                      Mantenimiento de estado de sesión
-                    </td>
-                    <td class="py-3 text-[12px]">2 años</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div>
-            <h2 class="text-xl font-bold mb-4 text-slate-900">
-              5. Tus Derechos
-            </h2>
-            <p class="text-slate-600 leading-relaxed">
-              Tienes derecho a acceder, rectificar, limitar el tratamiento o
-              suprimir tus datos. Para ello, puedes contactarme en cualquier
-              momento. Además, puedes revocar tu consentimiento sobre las
-              cookies directamente desde el banner de configuración de este
-              sitio.
+            <h2 class="text-lg font-bold font-display mb-3 text-slate-900">4. Tus Derechos</h2>
+            <p>
+              Tienes pleno derecho a acceder, rectificar, limitar o solicitar la eliminación de tus datos personales almacenados tras el envío del formulario. Simplemente envía una solicitud por correo a <a href="mailto:noe@noeliza.com" class="text-brand-primary underline">noe@noeliza.com</a>.
             </p>
           </div>
         </section>
-
-        <div
-          class="mt-20 pt-8 border-t border-slate-100 text-center text-slate-400 text-sm"
-        >
-          <p>© 2026 Noeliza</p>
-        </div>
-        <div
-          class="text-sm mt-8 space-x-4 text-slate-400 flex justify-center items-center"
-        >
-          <button
-            id="open-cookie-settings"
-            class="hover:text-brand-primary transition-colors cursor-pointer outline-none"
-            data-track-event="navigation_click"
-            data-track-location="footer_nav"
-            data-track-section="footer"
-          >
-            Configuración de cookies
-          </button>
-        </div>
       </div>
     </main>
-    <div
-      id="cookie-banner"
-      class="fixed bottom-4 left-4 right-4 md:left-auto md:max-w-md bg-white border border-slate-200 shadow-2xl rounded-2xl p-6 z-[100] hidden"
-    >
-      <div class="flex items-start gap-4">
-        <div
-          class="bg-brand-primary/10 p-2 rounded-lg text-brand-primary shrink-0"
-        >
-          <svg
-            class="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-            ></path>
-          </svg>
-        </div>
-        <div class="w-full">
-          <h4 class="font-bold text-slate-800 text-sm mb-2">
-            Configuración de Privacidad
-          </h4>
-          <p class="text-xs text-slate-500 leading-relaxed mb-4">
-            Utilizo cookies para analizar el tráfico y optimizar tu experiencia.
-            Puedes leer más en mi
-            <a
-              href="./privacidad.html"
-              class="underline hover:text-brand-primary"
-              >política de privacidad</a
-            >.
-          </p>
-          <p class="text-xs text-slate-500 leading-relaxed mb-4">
-            Personaliza cómo prefieres que trate tus datos:
-          </p>
 
-          <div class="space-y-3 mb-6">
-            <label class="flex items-center justify-between cursor-pointer">
-              <span class="text-[11px] font-semibold text-slate-700"
-                >Analítica</span
-              >
-              <input
-                type="checkbox"
-                id="check-analytics"
-                checked
-                class="w-4 h-4 text-brand-primary rounded border-slate-300 focus:ring-brand-primary"
-              />
-            </label>
-            <label class="flex items-center justify-between cursor-pointer">
-              <span class="text-[11px] font-semibold text-slate-700"
-                >Marketing</span
-              >
-              <input
-                type="checkbox"
-                id="check-marketing"
-                checked
-                class="w-4 h-4 text-brand-primary rounded border-slate-300 focus:ring-brand-primary"
-              />
-            </label>
-          </div>
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-200 bg-white text-center">
+      <p class="text-[10px] text-slate-400 uppercase tracking-[0.2em]">
+        &copy; 2026 Noeliza - Política de Privacidad
+      </p>
+    </footer>
 
-          <div class="flex flex-col gap-2">
-            <button
-              id="btn-save"
-              class="w-full bg-brand-primary text-white text-xs font-bold px-4 py-2.5 rounded-lg hover:bg-opacity-90 transition-all"
-            >
-              Guardar preferencias
-            </button>
-            <button
-              id="btn-accept-all"
-              class="w-full bg-slate-100 text-slate-700 text-xs font-bold px-4 py-2 rounded-lg hover:bg-slate-200 transition-all"
-            >
-              Aceptar todas
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src="./js/consent.js" defer></script>
+    <!-- Scripts de tracking -->
     <script src="./js/tracking.js" defer></script>
+    <script src="./js/consent.js"></script>
   </body>
 </html>

@@ -1,11 +1,11 @@
 const scriptURL =
   "https://script.google.com/macros/s/AKfycby-pjcbpr8umUnoU_OXW1bBdycoQLvlMshfWp4tLTooipBJ7lLkaf1acOw3GBtdUrSyKQ/exec";
-const form = document.getElementById("contact-form"); //
+const form = document.getElementById("contact-form");
 const btn = document.getElementById("submit-btn");
 const formContainer = document.getElementById("form-container");
 const successMessage = document.getElementById("success-message");
 
-// 1. Diccionario de mapeo: Texto del HTML -> Código de Analytics
+// Diccionario de mapeo: Texto del HTML -> Código de Analytics
 const serviceCodes = {
   "Cimientos Digitales: Implementación Profesional de GA4 y GTM":
     "noeliza_service_01",
@@ -14,21 +14,40 @@ const serviceCodes = {
   "Advanced MarTech Stack: Infraestructura & Data": "noeliza_service_04",
 };
 
-form.addEventListener("submit", e => {
+// Función nativa y asíncrona para hashear el email en SHA-256 en el cliente
+async function sha256(message) {
+  const msgBuffer = new TextEncoder().encode(message.trim().toLowerCase());
+  const hashBuffer = await window.crypto.subtle.digest("SHA-256", msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+  return hashHex;
+}
+
+form.addEventListener("submit", async e => {
   e.preventDefault();
 
-  // Capturamos el servicio seleccionado
-  const selectedServiceText = form.elements["servicio"].value; //
-  //Captura del email del usuario
+  // Capturar el servicio seleccionado y el email
+  const selectedServiceText = form.elements["servicio"].value;
   const userEmail = form.elements["email"].value;
+
+  // Hashear el email para cumplir con las normativas PII de GA4/Meta
+  let hashedEmail = "";
+  try {
+    hashedEmail = await sha256(userEmail);
+  } catch (err) {
+    console.error("Error al hashear el email:", err);
+    hashedEmail = "hashing_failed";
+  }
 
   const serviceCode =
     serviceCodes[selectedServiceText] || "noeliza_service_unknown";
+
   // Cambiar estado del botón
   btn.disabled = true;
   btn.innerText = "Enviando...";
   btn.classList.add("opacity-50", "cursor-not-allowed");
 
+  // Enviar el formulario por POST (a Google Sheets a través de Apps Script)
   fetch(scriptURL, {
     method: "POST",
     body: new FormData(form),
@@ -37,10 +56,11 @@ form.addEventListener("submit", e => {
       formContainer.classList.add("hidden");
       successMessage.classList.remove("hidden");
 
-      //Unique event ID para deduplicación
+      // Unique event ID para deduplicación
       const uniqueEventId =
         "noeliza_" + Date.now() + "_" + Math.random().toString(36).substr(2, 9);
-      // Envío del evento
+
+      // Envío del evento a dataLayer con el email HASHEADO
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         event: "form_submission_success",
@@ -48,22 +68,21 @@ form.addEventListener("submit", e => {
         event_info: {
           service_id: serviceCode,
           service_name: selectedServiceText.toLowerCase(),
-          email: userEmail,
+          email: hashedEmail, // SHA-256 Hash
           timestamp: new Date().toISOString(),
         },
         user_properties: {
           user_type: "lead",
         },
       });
-      window.dataLayer.push({ event_info: null }); // Reset para evitar pollution del Data Model
+      window.dataLayer.push({ event_info: null }); // Reset
     })
     .catch(error => {
-      console.error("Error!", error.message);
-      //alert("Error al enviar");
+      console.error("Error al enviar el formulario:", error.message);
 
       // Re-habilitar botón en caso de error
       btn.disabled = false;
-      btn.innerText = "Solicitar presupuesto";
+      btn.innerText = "Enviar consulta";
       btn.classList.remove("opacity-50", "cursor-not-allowed");
     });
 });

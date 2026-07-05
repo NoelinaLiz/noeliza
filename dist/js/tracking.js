@@ -1,25 +1,45 @@
-// Inicializar el dataLayer
+// Inicializar el dataLayer e interceptor de eventos
 window.dataLayer = window.dataLayer || [];
 
 (function () {
-  // Escuchar todos los clics en el documento
+  const originalPush = window.dataLayer.push || Array.prototype.push;
+
+  // Función customizada para interceptar los pushes de GTM u otros scripts
+  window.dataLayer.push = function (...args) {
+    const result = originalPush.apply(window.dataLayer, args);
+
+    args.forEach(item => {
+      if (item && typeof item === "object") {
+        // Ignorar el reset de event_info: null para evitar ruido en la consola
+        if (Object.keys(item).length === 1 && item.hasOwnProperty("event_info") && item.event_info === null) {
+          return;
+        }
+        // Despachar el evento para la consola en vivo
+        const customEvt = new CustomEvent("dataLayer-push", { detail: item });
+        window.dispatchEvent(customEvt);
+      }
+    });
+
+    return result;
+  };
+})();
+
+// Captura de clics declarativa mediante data-attributes
+(function () {
   document.addEventListener(
     "click",
     function (e) {
-      // Buscar si el elemento clickeado (o alguno de sus padres) tiene el atributo de tracking
       const trackElement = e.target.closest("[data-track-event]");
 
       if (trackElement) {
-        // Extraer los valores de los atributos data-
         const eventName = trackElement.getAttribute("data-track-event");
         const eventLocation = trackElement.getAttribute("data-track-location");
         const eventElement = trackElement.getAttribute("data-track-element");
         const eventSection = trackElement.getAttribute("data-track-section");
 
-        // Reset para evitar pollution del Data Model
+        // Reset de event_info para evitar pollution
         window.dataLayer.push({ event_info: null });
 
-        // Creación del objeto inicial de event info
         const rawInfo = {
           location: eventLocation,
           element: eventElement,
@@ -28,14 +48,14 @@ window.dataLayer = window.dataLayer || [];
           timestamp: new Date().toISOString(),
         };
 
-        // FILTRADO: Solo conservamos las propiedades que tienen un valor real y no están vacías
+        // Eliminar valores vacíos o nulos
         const cleanInfo = Object.fromEntries(
           Object.entries(rawInfo).filter(
             ([_, value]) => value && value.trim() !== ""
           )
         );
 
-        // Push al dataLayer usando el objeto limpio
+        // Envío al dataLayer
         window.dataLayer.push({
           event: "trackEvent",
           event_name: eventName,
