@@ -113,10 +113,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btnSimulateEvent) {
     btnSimulateEvent.addEventListener("click", () => {
       window.dataLayer.push({
-        event: "recruiter_test_click",
-        recruiter_action: "simulated_debug_click",
+        event: "visitor_test_click",
+        visitor_action: "simulated_debug_click",
         details: {
-          simulated_by: "visitor_recruiter",
+          simulated_by: "visitor",
           message: "Probando debugger en tiempo real de Noeliza.com",
           success: true
         }
@@ -133,12 +133,7 @@ console.log(
 
 console.log(
   "%cHe diseñado este sitio web no solo como mi portfolio, sino como mi propio sandbox de analítica digital. 👀💻\n\n" +
-    "He implementado:\n" +
-    "✔ Google Consent Mode v2 de forma nativa (GDPR-compliant).\n" +
-    "✔ Proxy inverso customizado sobre Cloudflare Workers enmascarando scripts en /b3ev.\n" +
-    "✔ Hasheo criptográfico en cliente (SHA-256) de emails para compliance de datos (Zero PII).\n" +
-    "✔ DataLayer dinámico mediante atributos HTML5 personalizados.\n\n" +
-    "📬 Si quieres charlar sobre arquitectura de datos, escríbeme a: %cnoe@noeliza.com",
+  "📬 Si quieres charlar sobre la implementación o arquitectura de datos, escríbeme a: %cnoe@noeliza.com",
   "color: #334155; font-size: 13px; line-height: 1.6;",
   "color: #1887e1; font-weight: bold; text-decoration: underline;"
 );
