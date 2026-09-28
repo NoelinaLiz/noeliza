@@ -1,0 +1,22 @@
+---
+import type { Dict } from "../i18n";
+
+interface Props {
+  t: Dict;
+}
+const { t } = Astro.props;
+const p = t.process;
+---
+
+<section class="sec" id="proceso" aria-labelledby="proc-t">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">{p.kicker}</p>
+      <h2 id="proc-t">{p.title}</h2>
+      <p>{p.lead}</p>
+    </div>
+    <ol class="steps">
+      {p.steps.map((step) => <li><h3>{step.name}</h3><p>{step.text}</p></li>)}
+    </ol>
+  </div>
+</section>

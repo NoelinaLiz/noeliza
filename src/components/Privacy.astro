@@ -1,0 +1,58 @@
+---
+import { getDict } from "../i18n";
+import { PATHS, type Lang } from "../data/site";
+import Base from "../layouts/Base.astro";
+import ConsentBanner from "./ConsentBanner.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = getDict(lang);
+const p = t.privacyPage;
+---
+
+<Base lang={lang} title={p.title} path={PATHS.privacy[lang]} alternates={PATHS.privacy} noindex>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href={PATHS.home[lang]} data-track-event="navigation_click" data-track-location="main_nav" data-track-element="main_logo" data-track-section="header">
+        <img src="/assets/logo-icon.webp" alt="" width="28" height="28" />
+        <span><b>Noe</b><i>Liza</i></span>
+      </a>
+      <nav class="nav" aria-label={t.nav.label}>
+        <a href={PATHS.home[lang]} data-track-event="navigation_click" data-track-location="main_nav" data-track-section="header">{p.back}</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="doc" id="contenido">
+    <div class="wrap">
+      <article class="prose">
+        <h1>{p.h1}</h1>
+        <p class="meta">{p.updated}</p>
+        <p>{p.intro}</p>
+        {
+          p.sections.map((s) => (
+            <section class:list={[{ highlight: "highlight" in s && s.highlight }]}>
+              <h2>{s.title}</h2>
+              {"body" in s && s.body && <p set:html={s.body} />}
+              {"list" in s && s.list && <ul>{s.list.map((li) => <li set:html={li} />)}</ul>}
+            </section>
+          ))
+        }
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <p class="rights">{p.footer}</p>
+        <div class="legal">
+          <button type="button" id="open-consent">{t.common.cookieSettings}</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <ConsentBanner t={t} lang={lang} />
+</Base>

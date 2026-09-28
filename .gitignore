@@ -1,21 +1,27 @@
-# Dependencias de Node
+# Dependencias y caché de herramientas
 node_modules/
+.astro/
 
-# Archivos de registro y errores
+# Registros y errores
 npm-debug.log
 *.log
 
-# Archivos del sistema operativo
+# Sistema operativo
 .DS_Store
 Thumbs.db
 
-# Configuración de editores
+# Editores
 .vscode/
 .idea/
 
 # Variables de entorno
 .env
 
-# Archivo local del proxy de Cloudflare (ignorado por seguridad y orden)
-reverse-proxy.js
-tracking-plan.md
+# Copias locales antiguas en la raíz (ahora viven versionadas en cloudflare/ y docs/)
+/reverse-proxy.js
+/tracking-plan.md
+
+# OJO: dist/ SÍ se versiona. Hostinger solo hace `git pull` y no compila nada.
+
+# Configuración local de Claude Code
+.claude/

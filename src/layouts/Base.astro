@@ -1,0 +1,40 @@
+---
+import "@fontsource-variable/bricolage-grotesque/opsz.css";
+import "@fontsource-variable/geist/wght.css";
+import "@fontsource-variable/geist-mono/wght.css";
+import "../styles/global.css";
+import Head from "../components/Head.astro";
+import { SITE, type Lang } from "../data/site";
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description?: string;
+  path: string;
+  alternates?: Record<Lang, string>;
+  noindex?: boolean;
+  structuredData?: boolean;
+  /** Carga el JavaScript del sitio (tracking, consentimiento, consola…). Todas las páginas lo necesitan para respetar el consentimiento. */
+}
+
+const { lang, ...head } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <Head lang={lang} {...head} />
+  </head>
+  <body>
+    <noscript>
+      <iframe
+        src={`https://www.googletagmanager.com/noscript.html?id=${SITE.gtmId}`}
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+        title="Google Tag Manager"></iframe>
+    </noscript>
+    <slot />
+    <script src="../scripts/main.ts"></script>
+  </body>
+</html>

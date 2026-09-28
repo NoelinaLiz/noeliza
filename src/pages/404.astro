@@ -1,0 +1,44 @@
+---
+import Base from "../layouts/Base.astro";
+import ConsentBanner from "../components/ConsentBanner.astro";
+import { getDict } from "../i18n";
+
+const t = getDict("es");
+const n = t.notFound;
+---
+
+<!--
+  Importante: esta página comparte Base (y con ella el "consent default" y GTM).
+  Se sirve en cualquier ruta inexistente (incluso anidadas como /a/b/c), por eso
+  todos los recursos se referencian con rutas absolutas.
+-->
+<Base lang="es" title={n.title} path="/404.html" noindex>
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="/" data-track-event="navigation_click" data-track-location="main_nav" data-track-element="main_logo" data-track-section="header">
+        <img src="/assets/logo-icon.webp" alt="" width="28" height="28" />
+        <span><b>Noe</b><i>Liza</i></span>
+      </a>
+    </div>
+  </header>
+  <main class="nf" id="contenido">
+    <div class="wrap">
+      <p class="nf-code" aria-hidden="true">404</p>
+      <h1>{n.heading}</h1>
+      <p class="lead">{n.text}</p>
+      <div class="actions">
+        <a class="btn primary" href="/" data-track-event="cta_click" data-track-section="404 page" data-track-location="back_to_home">{n.back}</a>
+      </div>
+    </div>
+  </main>
+  <ConsentBanner t={t} lang="es" />
+  <script is:inline>
+    // Evento de error 404 (contrato con GTM: trackEvent + event_name "error_404").
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "trackEvent",
+      event_name: "error_404",
+      event_info: { path: window.location.pathname, referrer: document.referrer || "direct" },
+    });
+  </script>
+</Base>

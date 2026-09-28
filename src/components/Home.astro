@@ -1,0 +1,41 @@
+---
+import { getDict } from "../i18n";
+import { PATHS, type Lang } from "../data/site";
+import Base from "../layouts/Base.astro";
+import Header from "./Header.astro";
+import Hero from "./Hero.astro";
+import Flow from "./Flow.astro";
+import About from "./About.astro";
+import Stack from "./Stack.astro";
+import Architecture from "./Architecture.astro";
+import Process from "./Process.astro";
+import Cases from "./Cases.astro";
+import Plan from "./Plan.astro";
+import Contact from "./Contact.astro";
+import Footer from "./Footer.astro";
+import ConsentBanner from "./ConsentBanner.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = getDict(lang);
+---
+
+<Base lang={lang} title={t.meta.title} description={t.meta.description} path={PATHS.home[lang]} alternates={PATHS.home} structuredData>
+  <a class="skip" href="#contenido">{t.common.skip}</a>
+  <Header t={t} lang={lang} />
+  <main id="contenido">
+    <Hero t={t} />
+    <Flow t={t} />
+    <About t={t} />
+    <Stack t={t} />
+    <Architecture t={t} />
+    <Process t={t} />
+    <Cases t={t} />
+    <Plan t={t} lang={lang} />
+    <Contact t={t} />
+  </main>
+  <Footer t={t} lang={lang} />
+  <ConsentBanner t={t} lang={lang} />
+</Base>

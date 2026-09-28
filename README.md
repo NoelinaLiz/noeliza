@@ -1,82 +1,95 @@
-# noeliza.com — Marketing Technology & Analytics Sandbox 🚀
+# noeliza.com
 
-Este es el repositorio de mi sitio web personal e interactivo [noeliza.com](https://noeliza.com). 
+Sitio personal de **Noeliza** (Noelia Lizárraga), Marketing Technologist. Es mi carta de presentación para reclutadores y, sobre todo, mi **sandbox de MarTech**: aquí practico consentimiento, tracking, privacidad y arquitectura de datos en un entorno real, y el propio sitio lo demuestra con una consola que muestra su `dataLayer` en vivo.
 
-Si bien sirve como mi carta de presentación y portfolio profesional para reclutadores, el **propósito principal de este proyecto es ser mi entorno de pruebas (sandbox)** para diseñar, implementar y testear arquitecturas avanzadas de analítica digital, gobernanza de datos y privacidad en entornos web reales.
-
----
-
-## 🛠️ Arquitectura de Medición y MarTech
-
-En este sitio he implementado y validado en producción diversas soluciones de ingeniería de marketing y analítica digital, destacando las siguientes:
-
-### 1. Gobernanza de Privacidad: Consent Mode v2 (Nativo)
-*   **Implementación:** Configuración del estado de consentimiento nativo en el `<head>` respetando GDPR/DMA.
-*   **Lógica:** Las preferencias del usuario sobre analítica y marketing se capturan en un banner de cookies dinámico, se persisten en `localStorage` y actualizan los permisos de Google Tag Manager mediante la API de `gtag("consent", "update", ...)`. 
-*   **Comportamiento:** Si un usuario niega el consentimiento, las etiquetas correspondientes se disparan en modo condicional sin persistir cookies de seguimiento, garantizando una medición *privacy-first*.
-
-### 2. Cumplimiento de PII: Hasheo SHA-256 en el Cliente (Zero PII)
-*   **Problema:** Enviar datos personales (como correos en texto plano de un formulario de contacto) a plataformas de terceros viola las políticas de GA4 y Meta.
-*   **Solución:** En el archivo [form-handler.js](dist/js/form-handler.js), antes de que el formulario se envíe por POST y se registre el evento en el `dataLayer`, el email del usuario se procesa localmente con la API de criptografía nativa del navegador (`window.crypto.subtle.digest("SHA-256", ...)`).
-*   **Resultado:** Solo se registra y comparte la firma hasheada unidireccional (SHA-256) del correo, protegiendo al 100% el PII del usuario.
-
-### 3. Evitando Bloqueadores: GTM Proxy Inverso con Cloudflare Workers
-*   **Implementación:** Para mitigar el impacto de bloqueadores de anuncios (adblockers) y mejorar la vida útil de las cookies bajo las políticas ITP/CNIL, las solicitudes a Google Tag Manager se sirven desde mi propio dominio.
-*   **Lógica:** Vinculé el dominio a Cloudflare y creé una Worker Rule que enmascara las peticiones. En el HTML del sitio verás que el script de GTM solicita el script de descarga y envía hits de eventos a través de la ruta `/b3ev/gtm.js?id=GTM-...` que enruta el tráfico hacia los servidores oficiales en segundo plano.
-
-### 4. Seguimiento Declarativo: Event Delegation mediante Atributos HTML5
-*   **Implementación:** Para mantener el HTML limpio y escalable, no utilizo disparadores de JavaScript inline en los botones.
-*   **Lógica:** En su lugar, utilizo un listener global en [tracking.js](dist/js/tracking.js) que intercepta todos los clics y procesa únicamente aquellos elementos que cuentan con atributos declarativos `data-track-event`, `data-track-location`, `data-track-element` y `data-track-section`. Los datos se limpian de valores vacíos y se envían de forma estandarizada en un solo hit al dataLayer.
-
-### 5. Debugger Visual en Pantalla (Live Tracking Console)
-*   **Implementación:** Para demostrar la precisión de la medición a las visitas y reclutadores, el sitio cuenta con una consola interactiva en pantalla.
-*   **Lógica:** En [tracking.js](dist/js/tracking.js) creamos un wrapper para la función estándar `window.dataLayer.push`. Cada vez que GTM u otro script agrega datos a la cola del dataLayer, el wrapper intercepta el objeto y despacha un evento personalizado de ventana.
-*   **UX:** El archivo [main.js](dist/js/main.js) escucha este evento y renderiza visualmente en la consola los datos capturados en formato JSON estructurado, incluyendo un botón de simulación interactiva. En el arranque de la página, el script también lee y expone los eventos iniciales (`gtm.js` o configuraciones de consentimiento) para evitar que la consola inicie vacía.
+Sitio en producción: <https://noeliza.com> · Versión en inglés: <https://noeliza.com/en.html>
 
 ---
 
-## 📂 Estructura del Código
+## Qué demuestra este sitio
 
-```bash
-├── dist/                    # Archivos estáticos finales listos para producción
-│   ├── assets/              # Imágenes, logos y favicon del sitio
-│   ├── css/
-│   │   └── style.css        # Hoja de estilos final generada por Tailwind CLI
-│   ├── js/
-│   │   ├── consent.js       # Control del banner de cookies y API de consentimiento
-│   │   ├── form-handler.js  # Envío del formulario asíncrono y Hasheo SHA-256
-│   │   ├── main.js          # Control de menús, progresos y render de la consola en vivo
-│   │   └── tracking.js      # Interceptor del dataLayer y listener global de clics
-│   ├── index.html           # Página de inicio y portfolio principal
-│   ├── privacidad.html      # Página de Política de Privacidad (Explicación del Hasheo y GTM Proxy)
-│   └── 404.html             # Página de error 404 con trackeo específico
+| Pieza | Qué hace | Dónde está |
+| :-- | :-- | :-- |
+| **Consent Mode v2** | Estado inicial `denied` antes de cargar GTM, banner con "Rechazar todo" y "Aceptar todo" con el mismo peso, decisión guardada con fecha (vence a los 12 meses). | [`consent-default.js`](src/scripts/consent-default.js), [`consent.ts`](src/scripts/consent.ts) |
+| **Tracking declarativo** | Un solo listener global; los elementos se etiquetan con `data-track-*` y generan un único `trackEvent`. | [`tracking.ts`](src/scripts/tracking.ts) |
+| **Consola del dataLayer en vivo** | Muestra los eventos reales, el estado del consentimiento y cómo viaja cada evento hacia GA4 y Meta Pixel. | [`console.ts`](src/scripts/console.ts) |
+| **PII con hash en el cliente** | El email se transforma con SHA-256 en el navegador antes de llegar al `dataLayer`. | [`hash.ts`](src/scripts/hash.ts), [`form.ts`](src/scripts/form.ts) |
+| **GTM detrás de un proxy** | `gtm.js` y los hits se sirven desde `/b3ev` en mi dominio, mediante un Worker de Cloudflare. | [`cloudflare/reverse-proxy.js`](cloudflare/reverse-proxy.js) |
+| **Formulario con honeypot** | Campo trampa oculto; envío a Google Apps Script; la conversión solo se mide si el envío fue correcto. | [`form.ts`](src/scripts/form.ts) |
+| **Plan de medición como código** | Una sola fuente ([`events.ts`](src/data/events.ts)) alimenta la tabla del sitio, el documento y las pruebas. | [`docs/tracking-plan.md`](docs/tracking-plan.md) |
+
+---
+
+## Stack
+
+- **[Astro](https://astro.build)** genera HTML estático. Cada sección es un componente y ES/EN comparten estructura (los textos están en [`src/i18n`](src/i18n)).
+- **CSS propio** con variables de tema (oscuro por defecto, claro por preferencia del sistema o con el botón "Tema"), en [`src/styles/global.css`](src/styles/global.css).
+- **TypeScript** para el JavaScript del sitio, con **Vitest** para las pruebas.
+- **Tipografías propias** (Bricolage Grotesque, Geist y Geist Mono vía Fontsource): no se pide nada a Google Fonts.
+- **Sin servidor propio**: Hostinger sirve los archivos estáticos; Cloudflare solo hace de proxy de GTM.
+
+Por qué estas decisiones (y qué se descartó a propósito, como sGTM o un Worker para el formulario) está en [`docs/decisiones.md`](docs/decisiones.md).
+
+---
+
+## Estructura
+
+```text
 ├── src/
-│   └── input.css            # Archivo CSS de entrada Tailwind CSS v4 con variables del tema y grids
-├── package.json             # Scripts de compilación de Tailwind CLI y dependencias de desarrollo
-└── README.md                # Documento explicativo de la arquitectura
+│   ├── components/      # Secciones y piezas de la página (Header, Hero, Console, Contact…)
+│   ├── data/
+│   │   ├── site.ts      # Datos del sitio: ID de GTM, ruta del proxy, endpoint del formulario…
+│   │   └── events.ts    # Plan de medición (única fuente de verdad de los eventos)
+│   ├── i18n/            # Textos en español (es.ts) e inglés (en.ts)
+│   ├── layouts/Base.astro
+│   ├── pages/           # index (ES), en (EN), privacidad, privacy, 404, sitemap.xml
+│   ├── scripts/         # consent, tracking, consola, formulario, tema, hash (+ pruebas)
+│   └── styles/global.css
+├── public/              # Se copia tal cual a dist/: assets, robots.txt
+├── scripts/             # Utilidades: generar el plan de medición y las imágenes
+├── cloudflare/          # Copia versionada del Worker que hace de proxy de GTM
+├── docs/                # Documentación (plan de medición, despliegue, decisiones, GTM)
+└── dist/                # Sitio compilado. SÍ se versiona: Hostinger no compila nada
 ```
 
 ---
 
-## ⚙️ Desarrollo Local y Despliegue
+## Desarrollo
 
-### Requisitos
-*   Node.js (v18+)
+Requiere Node.js 22.12 o superior.
 
-### Instalación de dependencias
 ```bash
-npm install
+npm install        # una sola vez
+npm run dev        # servidor de desarrollo en http://localhost:4321
+npm run build      # compila el sitio en dist/
+npm run preview    # sirve dist/ para probarlo como en producción
+npm run check      # revisión de tipos (astro check)
+npm test           # pruebas
+npm run docs       # regenera docs/tracking-plan.md desde src/data/events.ts
+npm run images     # regenera el retrato pequeño y la imagen para compartir
 ```
 
-### Compilar estilos CSS (Tailwind v4)
-Para compilar los estilos de forma manual o durante el desarrollo continuo:
-```bash
-# Compilar una única vez
-npx @tailwindcss/cli -i ./src/input.css -o ./dist/css/style.css
+> En local, `/b3ev/gtm.js` da 404: el proxy de GTM solo existe en producción (Cloudflare). Es esperado.
 
-# Compilar en modo observación (watch)
-npm run build
-```
+## Publicar cambios
 
-### Despliegue
-Este repositorio utiliza un flujo de **GitHub Actions** automatizado. Al realizar un `git push` a la rama `main`, los cambios estáticos del directorio `dist/` se sincronizan automáticamente con el plan de hosting productivo en Hostinger.
+Hostinger solo hace `git pull`; no compila. Por eso el flujo es:
+
+1. Hacer los cambios y ejecutar `npm test` y `npm run build`.
+2. Hacer commit **incluyendo `dist/`**.
+3. Subir a `main` y, en el panel de Hostinger, hacer el pull.
+
+Detalle, verificación posterior y cómo volver atrás: [`docs/despliegue.md`](docs/despliegue.md).
+
+---
+
+## Documentación
+
+- [Plan de medición](docs/tracking-plan.md): eventos, parámetros y reglas de gobierno del dato.
+- [Contrato con GTM](docs/gtm.md): qué espera el contenedor de GTM del sitio y qué no se puede renombrar.
+- [Despliegue](docs/despliegue.md): flujo de publicación, verificación y reversión.
+- [Decisiones](docs/decisiones.md): por qué el sitio es como es.
+
+## Licencia
+
+ISC © Noelia Lizárraga

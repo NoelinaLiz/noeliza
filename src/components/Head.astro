@@ -1,0 +1,140 @@
+---
+import consentDefault from "../scripts/consent-default.js?raw";
+import { SITE, type Lang } from "../data/site";
+import { getDict } from "../i18n";
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description?: string;
+  /** Ruta pública de esta página (ej. "/en.html"). */
+  path: string;
+  /** Si la página existe en ambos idiomas, sus rutas (activa hreflang). */
+  alternates?: Record<Lang, string>;
+  noindex?: boolean;
+  /** Inserta los datos estructurados de la persona (solo en las portadas). */
+  structuredData?: boolean;
+}
+
+const { lang, title, description, path, alternates, noindex = false, structuredData = false } = Astro.props;
+const t = getDict(lang);
+const canonical = new URL(path, SITE.url).href;
+const ogImage = `${SITE.url}/assets/og-image.png`;
+
+const themeInit = `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
+
+const person = {
+  "@type": "Person",
+  "@id": `${SITE.url}/#person`,
+  name: SITE.fullName,
+  alternateName: "Noeliza",
+  url: SITE.url,
+  image: `${SITE.url}/assets/perfil-noeliza.webp`,
+  jobTitle: "Marketing Technologist & MarTech Specialist",
+  description: t.meta.jsonLdDescription,
+  knowsLanguage: ["es", "en"],
+  knowsAbout: [
+    "Google Analytics 4",
+    "Google Tag Manager",
+    "Amplitude",
+    "Braze",
+    "Singular (MMP)",
+    "Mobile Attribution",
+    "Deeplinks",
+    "Snowflake",
+    "BigQuery",
+    "SQL",
+    "Consent Mode v2",
+    "Server-side Tracking",
+    "A/B Testing",
+    "Amplitude Experiment",
+    "Data Governance",
+    "Marketing Technology",
+    "Data Integration",
+  ],
+  sameAs: [SITE.linkedin, SITE.github],
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    person,
+    {
+      "@type": "WebSite",
+      "@id": `${SITE.url}/#website`,
+      url: SITE.url,
+      name: SITE.brand,
+      alternateName: SITE.fullName,
+      inLanguage: ["es", "en"],
+      publisher: { "@id": `${SITE.url}/#person` },
+    },
+    {
+      "@type": "ProfilePage",
+      url: canonical,
+      inLanguage: lang,
+      mainEntity: { "@id": `${SITE.url}/#person` },
+    },
+  ],
+};
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+{description && <meta name="description" content={description} />}
+{!noindex && <link rel="canonical" href={canonical} />}
+{
+  alternates && (
+    <>
+      <link rel="alternate" hreflang="es" href={new URL(alternates.es, SITE.url).href} />
+      <link rel="alternate" hreflang="en" href={new URL(alternates.en, SITE.url).href} />
+      <link rel="alternate" hreflang="x-default" href={new URL(alternates.es, SITE.url).href} />
+    </>
+  )
+}
+<meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
+<meta name="google-site-verification" content={SITE.googleSiteVerification} />
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+
+{
+  !noindex && (
+    <>
+      <meta property="og:type" content="website" />
+      <meta property="og:site_name" content={SITE.brand} />
+      <meta property="og:url" content={canonical} />
+      <meta property="og:title" content={t.meta.ogTitle} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={ogImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={t.meta.ogAlt} />
+      <meta property="og:locale" content={t.locale} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={t.meta.ogTitle} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={ogImage} />
+    </>
+  )
+}
+
+{structuredData && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+
+<!-- Tema: se aplica antes del primer pintado para evitar el parpadeo. -->
+<script is:inline set:html={themeInit} />
+
+<!-- Consent Mode v2: el estado inicial va ANTES de GTM, de forma síncrona. -->
+<script is:inline set:html={consentDefault} />
+
+<!-- Google Tag Manager, servido desde este dominio por el reverse proxy de Cloudflare (ruta /b3ev). -->
+<script define:vars={{ gtmId: SITE.gtmId, proxy: SITE.gtmProxyPath }}>
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != "dataLayer" ? "&l=" + l : "";
+    j.async = true;
+    j.src = proxy + "/gtm.js?id=" + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, "script", "dataLayer", gtmId);
+</script>

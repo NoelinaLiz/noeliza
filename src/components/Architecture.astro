@@ -1,0 +1,38 @@
+---
+import type { Dict } from "../i18n";
+
+interface Props {
+  t: Dict;
+}
+const { t } = Astro.props;
+const a = t.arch;
+---
+
+<section class="sec" id="arquitectura" aria-labelledby="arq-t">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">{a.kicker}</p>
+      <h2 id="arq-t">{a.title}</h2>
+      <p>{a.lead}</p>
+    </div>
+    <div class="arch" role="group" aria-label={a.label}>
+      {
+        a.stages.map((stage, i) => (
+          <>
+            {i > 0 && <span class="arrow" aria-hidden="true" />}
+            <div class="stage">
+              <h3>{stage.title}</h3>
+              {stage.nodes.map((n) => (
+                <div class:list={["node", { dashed: "dashed" in n && n.dashed }]}>
+                  <b>{n.name}</b>
+                  <small>{n.note}</small>
+                </div>
+              ))}
+            </div>
+          </>
+        ))
+      }
+      <div class="band"><b>{a.band.name}</b><span>{a.band.text}</span></div>
+    </div>
+  </div>
+</section>

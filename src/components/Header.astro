@@ -1,0 +1,49 @@
+---
+import type { Dict } from "../i18n";
+import type { Lang } from "../data/site";
+
+interface Props {
+  t: Dict;
+  lang: Lang;
+}
+const { t, lang } = Astro.props;
+const other = t.common.langSwitch;
+const track = { "data-track-event": "navigation_click", "data-track-location": "main_nav", "data-track-section": "header" };
+---
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" data-track-event="navigation_click" data-track-location="main_nav" data-track-element="main_logo" data-track-section="header">
+      <img src="/assets/logo-icon.webp" alt="" width="28" height="28" />
+      <span><b>Noe</b><i>Liza</i></span>
+    </a>
+    <nav class="nav" aria-label={t.nav.label}>
+      <a class="hide-s" href="#sobre-mi" {...track}>{t.nav.about}</a>
+      <a class="hide-s" href="#stack" {...track}>{t.nav.stack}</a>
+      <a class="hide-s" href="#proyectos" {...track}>{t.nav.projects}</a>
+      <a class="hide-s" href="#plan" {...track}>{t.nav.plan}</a>
+      <a class="cta" href="#contacto" {...track}>{t.nav.contact}</a>
+      <a
+        class="icon-btn"
+        href={other.href}
+        hreflang={lang === "es" ? "en" : "es"}
+        lang={lang === "es" ? "en" : "es"}
+        aria-label={other.label}
+        data-track-event="interactive_click"
+        data-track-location="main_nav"
+        data-track-element={lang === "es" ? "lang_en" : "lang_es"}
+        data-track-section="header">{other.short}</a
+      >
+      <button
+        class="icon-btn"
+        id="theme"
+        type="button"
+        aria-label={t.nav.themeLabel}
+        data-track-event="interactive_click"
+        data-track-location="main_nav"
+        data-track-element="theme_toggle"
+        data-track-section="header">{t.nav.theme}</button
+      >
+    </nav>
+  </div>
+</header>

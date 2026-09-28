@@ -1,0 +1,37 @@
+---
+import type { Dict } from "../i18n";
+import { SITE } from "../data/site";
+import Console from "./Console.astro";
+
+interface Props {
+  t: Dict;
+}
+const { t } = Astro.props;
+---
+
+<section class="hero" id="inicio">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>
+        <span class="role">{t.hero.role}</span>{t.hero.titleBefore}<em>{t.hero.titleEm}</em>{t.hero.titleAfter}
+      </h1>
+      <p class="lead">{t.hero.lead}</p>
+      <div class="actions">
+        <a class="btn primary" href="#consola" data-track-event="cta_click" data-track-section="hero" data-track-location="cta_primary">{t.hero.ctaPrimary}</a>
+        <a class="btn" href="#contacto" data-track-event="cta_click" data-track-section="hero" data-track-location="cta_secondary">{t.hero.ctaSecondary}</a>
+      </div>
+      <div class="person">
+        <img src="/assets/perfil-noeliza-128.webp" alt={t.hero.photoAlt} width="64" height="64" fetchpriority="high" decoding="async" />
+        <div>
+          <b>{SITE.fullName}</b>
+          <small>{t.hero.jobTitle}</small>
+          <div class="links">
+            <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" data-track-event="social_click" data-track-section="hero_profile" data-track-element="LinkedIn">LinkedIn</a>
+            <a href={SITE.github} target="_blank" rel="noopener noreferrer" data-track-event="social_click" data-track-section="hero_profile" data-track-element="GitHub">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <Console t={t} />
+  </div>
+</section>

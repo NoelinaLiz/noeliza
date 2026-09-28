@@ -1,87 +1,91 @@
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 - Página no encontrada | Noeliza</title>
-    
-    <!-- Configuración de GTM Proxy Inverso -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src = "/b3ev/gtm.js?id=" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-5XBZSB7");
-    </script>
-    <!-- Fin Google Tag Manager -->
-    
-    <link rel="stylesheet" href="./css/style.css" />
-    
-    <!-- Google Fonts: Plus Jakarta Sans e Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
-  </head>
-  
-  <body class="bg-slate-50/50 text-slate-800 font-sans min-h-screen flex flex-col antialiased bg-grid-pattern">
-    <noscript>
-      <iframe src="https://www.googletagmanager.com/noscript.html?id=GTM-5XBZSB7" height="0" width="0" style="display: none; visibility: hidden"></iframe>
-    </noscript>
+<!DOCTYPE html><!--
+  Importante: esta página comparte Base (y con ella el "consent default" y GTM).
+  Se sirve en cualquier ruta inexistente (incluso anidadas como /a/b/c), por eso
+  todos los recursos se referencian con rutas absolutas.
+--><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>404 · Página no encontrada | NoeLiza</title><meta name="robots" content="noindex, follow"><meta name="google-site-verification" content="KxTMML_8I6eKVFESLhRJi_meo7Ixmn2HBh-mDybHzkE"><link rel="icon" type="image/x-icon" href="/assets/favicon.ico"><!-- Tema: se aplica antes del primer pintado para evitar el parpadeo. --><script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script><!-- Consent Mode v2: el estado inicial va ANTES de GTM, de forma síncrona. --><script>/*
+ * Estado inicial de Consent Mode v2.
+ *
+ * Este archivo se inserta INLINE en el <head>, antes del snippet de GTM (ver
+ * components/Head.astro). Tiene que ejecutarse de forma síncrona para que el
+ * "default" llegue al dataLayer antes de que GTM lea nada.
+ *
+ * Es JavaScript plano y sin imports a propósito: así se puede inlinear y también
+ * probar con Vitest (consent-default.test.ts). Las constantes de abajo deben
+ * coincidir con SITE.consentStorageKey y SITE.consentMonths (lo verifica el test).
+ */
+(function () {
+  var KEY = "cookie-consent";
+  var MONTHS = 12;
+  var KEYS = ["analytics_storage", "ad_storage", "ad_user_data", "ad_personalization"];
 
-    <!-- Nav Simple -->
-    <nav class="w-full bg-white/80 backdrop-blur-md border-b border-slate-200/60 h-20 flex items-center shrink-0">
-      <div class="max-w-6xl mx-auto px-6 w-full">
-        <a href="/" class="h-8 flex items-center">
-          <img src="./assets/logo-full.webp" alt="Noeliza Logo" class="h-full w-auto" />
-        </a>
-      </div>
-    </nav>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  window.gtag = gtag;
 
-    <!-- Main Content -->
-    <main class="flex-grow flex items-center justify-center px-6 py-20 relative z-10">
-      <div class="max-w-md w-full text-center">
-        <h1 class="text-7xl md:text-8xl font-extrabold font-display mb-4 text-brand-primary select-none opacity-20">
-          404
-        </h1>
+  function allDenied() {
+    var state = {};
+    KEYS.forEach(function (k) {
+      state[k] = "denied";
+    });
+    return state;
+  }
 
-        <h2 class="text-2xl md:text-3xl font-extrabold font-display mb-4 text-slate-900">
-          Ruta sin salida 😓
-        </h2>
+  // Devuelve la decisión guardada (solo las 4 claves válidas) o null si no hay,
+  // está corrupta o venció. Las decisiones anteriores sin fecha (`ts`) siguen valiendo.
+  function readSaved() {
+    try {
+      var raw = JSON.parse(localStorage.getItem(KEY));
+      if (!raw || typeof raw !== "object") return null;
+      var state = {};
+      for (var i = 0; i < KEYS.length; i++) {
+        var v = raw[KEYS[i]];
+        if (v !== "granted" && v !== "denied") return null;
+        state[KEYS[i]] = v;
+      }
+      if (typeof raw.ts === "number") {
+        var limit = new Date(raw.ts);
+        limit.setMonth(limit.getMonth() + MONTHS);
+        if (Date.now() > limit.getTime()) return null;
+      }
+      return state;
+    } catch (e) {
+      return null;
+    }
+  }
 
-        <p class="text-sm text-slate-500 mb-8 leading-relaxed max-w-sm mx-auto">
-          Lo siento, la página que buscas no existe o ha sido movida.
-        </p>
+  var saved = readSaved();
+  var state = saved || allDenied();
 
-        <a href="/" class="bg-brand-primary hover:bg-brand-hover text-white px-8 py-3 rounded-full font-bold transition-all shadow-md inline-block text-sm" data-track-event="cta_click" data-track-section="404 page" data-track-location="back_to_home">
-          Volver al inicio
-        </a>
-      </div>
-    </main>
+  window.__consent = { key: KEY, keys: KEYS, months: MONTHS, state: state, decided: !!saved };
 
-    <!-- Footer Simple -->
-    <footer class="py-12 border-t border-slate-200/60 text-center shrink-0 bg-white">
-      <p class="text-[10px] text-slate-400 uppercase tracking-[0.2em]">
-        &copy; 2026 Noeliza - Error 404
-      </p>
-    </footer>
+  var payload = {};
+  KEYS.forEach(function (k) {
+    payload[k] = state[k];
+  });
+  if (!saved) payload.wait_for_update = 500;
+  gtag("consent", "default", payload);
+})();
+</script><!-- Google Tag Manager, servido desde este dominio por el reverse proxy de Cloudflare (ruta /b3ev). --><script>(function(){const gtmId = "GTM-5XBZSB7";
+const proxy = "/b3ev";
 
-    <!-- Registro de Evento 404 en dataLayer -->
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: "trackEvent",
-        event_name: "error_404",
-        event_info: {
-          path: window.location.pathname,
-          referrer: document.referrer || "direct"
-        }
-      });
-    </script>
-    <script src="./js/tracking.js?v=2.1" defer></script>
-  </body>
-</html>
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != "dataLayer" ? "&l=" + l : "";
+    j.async = true;
+    j.src = proxy + "/gtm.js?id=" + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, "script", "dataLayer", gtmId);
+})();</script><link rel="stylesheet" href="/_astro/ConsentBanner.BK_Lx66s.css"></head><body><noscript><iframe src="https://www.googletagmanager.com/noscript.html?id=GTM-5XBZSB7" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript><header class="top"><div class="wrap"><a class="brand" href="/" data-track-event="navigation_click" data-track-location="main_nav" data-track-element="main_logo" data-track-section="header"><img src="/assets/logo-icon.webp" alt="" width="28" height="28"><span><b>Noe</b><i>Liza</i></span></a></div></header><main class="nf" id="contenido"><div class="wrap"><p class="nf-code" aria-hidden="true">404</p><h1>Ruta sin salida</h1><p class="lead">La página que buscas no existe o se movió.</p><div class="actions"><a class="btn primary" href="/" data-track-event="cta_click" data-track-section="404 page" data-track-location="back_to_home">Volver al inicio</a></div></div></main><!-- Oculto por defecto: consent.ts lo muestra si todavía no hay una decisión vigente. --><div class="banner" id="banner" role="dialog" aria-labelledby="b-t" aria-describedby="b-d" hidden><h2 id="b-t">Tu privacidad, tú decides</h2><p id="b-d">Uso cookies de analítica y de publicidad solo si tú lo permites. Sin tu permiso, la medición se limita a señales anónimas sin cookies. <a href="/privacidad.html" class="policy-link">Política de privacidad</a>.</p><div class="btns"><button class="btn" id="c-reject" type="button">Rechazar todo</button><button class="btn" id="c-accept" type="button">Aceptar todo</button></div><button class="linkbtn" id="c-custom" type="button" aria-expanded="false" aria-controls="c-panel">Personalizar</button><div class="cpanel" id="c-panel" hidden><label><input type="checkbox" id="chk-analytics"><span>Analítica<small>analytics_storage: mide visitas y uso de forma agregada.</small></span></label><label><input type="checkbox" id="chk-ads"><span>Publicidad<small>ad_storage, ad_user_data y ad_personalization.</small></span></label><button class="btn primary" id="c-save" type="button">Guardar selección</button></div></div><script>
+    // Evento de error 404 (contrato con GTM: trackEvent + event_name "error_404").
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "trackEvent",
+      event_name: "error_404",
+      event_info: { path: window.location.pathname, referrer: document.referrer || "direct" },
+    });
+  </script><script type="module" src="/_astro/Base.astro_astro_type_script_index_0_lang.B-PU9khy.js"></script></body></html>

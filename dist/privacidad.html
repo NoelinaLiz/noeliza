@@ -1,145 +1,79 @@
-<!doctype html>
-<html lang="es" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Noeliza | Política de Privacidad</title>
-    
-    <!-- Configuración inicial de Consentimiento -->
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Política de privacidad | NoeLiza</title><link rel="alternate" hreflang="es" href="https://noeliza.com/privacidad.html"><link rel="alternate" hreflang="en" href="https://noeliza.com/privacy.html"><link rel="alternate" hreflang="x-default" href="https://noeliza.com/privacidad.html"><meta name="robots" content="noindex, follow"><meta name="google-site-verification" content="KxTMML_8I6eKVFESLhRJi_meo7Ixmn2HBh-mDybHzkE"><link rel="icon" type="image/x-icon" href="/assets/favicon.ico"><!-- Tema: se aplica antes del primer pintado para evitar el parpadeo. --><script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script><!-- Consent Mode v2: el estado inicial va ANTES de GTM, de forma síncrona. --><script>/*
+ * Estado inicial de Consent Mode v2.
+ *
+ * Este archivo se inserta INLINE en el <head>, antes del snippet de GTM (ver
+ * components/Head.astro). Tiene que ejecutarse de forma síncrona para que el
+ * "default" llegue al dataLayer antes de que GTM lea nada.
+ *
+ * Es JavaScript plano y sin imports a propósito: así se puede inlinear y también
+ * probar con Vitest (consent-default.test.ts). Las constantes de abajo deben
+ * coincidir con SITE.consentStorageKey y SITE.consentMonths (lo verifica el test).
+ */
+(function () {
+  var KEY = "cookie-consent";
+  var MONTHS = 12;
+  var KEYS = ["analytics_storage", "ad_storage", "ad_user_data", "ad_personalization"];
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  window.gtag = gtag;
+
+  function allDenied() {
+    var state = {};
+    KEYS.forEach(function (k) {
+      state[k] = "denied";
+    });
+    return state;
+  }
+
+  // Devuelve la decisión guardada (solo las 4 claves válidas) o null si no hay,
+  // está corrupta o venció. Las decisiones anteriores sin fecha (`ts`) siguen valiendo.
+  function readSaved() {
+    try {
+      var raw = JSON.parse(localStorage.getItem(KEY));
+      if (!raw || typeof raw !== "object") return null;
+      var state = {};
+      for (var i = 0; i < KEYS.length; i++) {
+        var v = raw[KEYS[i]];
+        if (v !== "granted" && v !== "denied") return null;
+        state[KEYS[i]] = v;
       }
-
-      if (!localStorage.getItem("cookie-consent")) {
-        gtag("consent", "default", {
-          ad_storage: "denied",
-          ad_user_data: "denied",
-          ad_personalization: "denied",
-          analytics_storage: "denied",
-          wait_for_update: 500,
-        });
-      } else {
-        const consent = JSON.parse(localStorage.getItem("cookie-consent"));
-        gtag("consent", "default", consent);
+      if (typeof raw.ts === "number") {
+        var limit = new Date(raw.ts);
+        limit.setMonth(limit.getMonth() + MONTHS);
+        if (Date.now() > limit.getTime()) return null;
       }
-    </script>
-    
-    <!-- Google Tag Manager a través del Proxy Inverso Cloudflare -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src = "/b3ev/gtm.js?id=" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-5XBZSB7");
-    </script>
-    
-    <link rel="stylesheet" href="./css/style.css" />
-    
-    <!-- Google Fonts: Plus Jakarta Sans e Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
-    
-    <meta name="robots" content="noindex, nofollow" />
-    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
-  </head>
-  
-  <body class="bg-slate-50/50 text-slate-800 font-sans antialiased selection:bg-brand-primary/10 selection:text-brand-primary">
-    <noscript>
-      <iframe src="https://www.googletagmanager.com/noscript.html?id=GTM-5XBZSB7" height="0" width="0" style="display: none; visibility: hidden"></iframe>
-    </noscript>
+      return state;
+    } catch (e) {
+      return null;
+    }
+  }
 
-    <!-- Nav -->
-    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-slate-200/60 h-20 flex items-center">
-      <div class="max-w-6xl mx-auto px-6 w-full flex justify-between items-center">
-        <a href="/" class="h-8 flex items-center" data-track-event="navigation_click" data-track-location="main_nav" data-track-element="main_logo" data-track-section="header">
-          <img src="./assets/logo-full.webp" alt="Noeliza Logo" class="h-full w-auto" />
-        </a>
-        <a href="./" class="text-xs font-semibold text-brand-primary hover:underline" data-track-event="navigation_click" data-track-location="main_nav" data-track-section="header">
-          ← Volver al inicio
-        </a>
-      </div>
-    </nav>
+  var saved = readSaved();
+  var state = saved || allDenied();
 
-    <!-- Main Content -->
-    <main class="pt-32 pb-24 px-6 bg-grid-pattern">
-      <div class="max-w-3xl mx-auto bg-white border border-slate-200/60 p-8 md:p-12 rounded-2xl shadow-sm relative z-10">
-        <h1 class="text-3xl font-extrabold font-display mb-6 tracking-tight text-slate-900">
-          Política de Privacidad
-        </h1>
+  window.__consent = { key: KEY, keys: KEYS, months: MONTHS, state: state, decided: !!saved };
 
-        <p class="text-xs text-slate-400 mb-10 leading-relaxed">
-          Última actualización: 5 de julio de 2026. <br />
-          Esta política describe cómo trato tus datos personales y las tecnologías de medición que utilizo para garantizar una navegación segura y respetuosa con tu privacidad.
-        </p>
+  var payload = {};
+  KEYS.forEach(function (k) {
+    payload[k] = state[k];
+  });
+  if (!saved) payload.wait_for_update = 500;
+  gtag("consent", "default", payload);
+})();
+</script><!-- Google Tag Manager, servido desde este dominio por el reverse proxy de Cloudflare (ruta /b3ev). --><script>(function(){const gtmId = "GTM-5XBZSB7";
+const proxy = "/b3ev";
 
-        <section class="space-y-10 text-sm text-slate-650 leading-relaxed">
-          <div>
-            <h2 class="text-lg font-bold font-display mb-3 text-slate-900">1. Responsable del Tratamiento</h2>
-            <p>
-              El responsable de los datos recogidos en este sitio web es <strong>Noelia Lizárraga</strong>. Puedes contactarme para cualquier duda, consulta o ejercicio de tus derechos de privacidad en <a href="mailto:noe@noeliza.com" class="text-brand-primary underline">noe@noeliza.com</a>.
-            </p>
-          </div>
-
-          <div>
-            <h2 class="text-lg font-bold font-display mb-3 text-slate-900">2. Información que recolectamos</h2>
-            <p class="mb-3">
-              Trato únicamente la información estrictamente necesaria para interactuar y evaluar colaboraciones profesionales:
-            </p>
-            <ul class="list-disc ml-6 space-y-2">
-              <li>
-                <strong>Formulario de Contacto:</strong> Nombre, dirección de correo electrónico, URL opcional y mensaje. Estos datos se procesan y almacenan en una base de datos privada en Google Sheets mediante Google Apps Script.
-              </li>
-              <li>
-                <strong>Datos de Navegación:</strong> Si otorgas tu consentimiento libre y explícito, utilizamos cookies para registrar el flujo del usuario en el sitio y optimizar su diseño de forma agregada.
-              </li>
-            </ul>
-          </div>
-
-          <div class="bg-brand-primary/5 p-6 rounded-xl border border-brand-primary/10">
-            <h2 class="text-base font-bold font-display mb-3 text-slate-900">3. Arquitectura Privacy-First & Cero PII</h2>
-            <p class="mb-3">
-              Como especialista en Marketing Technology, este sitio web incorpora las mejores prácticas internacionales de seguridad de la información:
-            </p>
-            <ul class="list-disc ml-6 space-y-2 italic text-xs">
-              <li>
-                <strong>Google Consent Mode v2:</strong> Si rechazas las cookies de analítica, GA4 no almacena cookies de seguimiento de usuario. Las señales enviadas a Google son estrictamente anónimas y no identificativas.
-              </li>
-              <li>
-                <strong>Hasheo Criptográfico en Cliente:</strong> En cumplimiento estricto con las políticas de PII (Personally Identifiable Information), tu email se cifra automáticamente en el navegador usando el algoritmo <strong>SHA-256</strong> antes de registrarse en el dataLayer. Tus datos de contacto nunca son enviados en texto plano.
-              </li>
-              <li>
-                <strong>Proxy Inverso Cloudflare Workers:</strong> Los scripts de analítica se sirven desde nuestro subdominio propio para aislar los datos del cliente, limitar filtraciones a terceras partes y mejorar el rendimiento de carga del script.
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 class="text-lg font-bold font-display mb-3 text-slate-900">4. Tus Derechos</h2>
-            <p>
-              Tienes pleno derecho a acceder, rectificar, limitar o solicitar la eliminación de tus datos personales almacenados tras el envío del formulario. Simplemente envía una solicitud por correo a <a href="mailto:noe@noeliza.com" class="text-brand-primary underline">noe@noeliza.com</a>.
-            </p>
-          </div>
-        </section>
-      </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="py-12 border-t border-slate-200 bg-white text-center">
-      <p class="text-[10px] text-slate-400 uppercase tracking-[0.2em]">
-        &copy; 2026 Noeliza - Política de Privacidad
-      </p>
-    </footer>
-
-    <!-- Scripts de tracking -->
-    <script src="./js/tracking.js?v=2.1" defer></script>
-    <script src="./js/consent.js?v=2.1"></script>
-  </body>
-</html>
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != "dataLayer" ? "&l=" + l : "";
+    j.async = true;
+    j.src = proxy + "/gtm.js?id=" + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, "script", "dataLayer", gtmId);
+})();</script><link rel="stylesheet" href="/_astro/ConsentBanner.BK_Lx66s.css"></head><body><noscript><iframe src="https://www.googletagmanager.com/noscript.html?id=GTM-5XBZSB7" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript><header class="top"><div class="wrap"><a class="brand" href="/" data-track-event="navigation_click" data-track-location="main_nav" data-track-element="main_logo" data-track-section="header"><img src="/assets/logo-icon.webp" alt="" width="28" height="28"><span><b>Noe</b><i>Liza</i></span></a><nav class="nav" aria-label="Principal"><a href="/" data-track-event="navigation_click" data-track-location="main_nav" data-track-section="header">← Volver al inicio</a></nav></div></header><main class="doc" id="contenido"><div class="wrap"><article class="prose"><h1>Política de privacidad</h1><p class="meta">Última actualización: 28 de septiembre de 2026.</p><p>Esta política describe cómo trato tus datos personales y las tecnologías de medición que uso en este sitio.</p><section><h2>1. Responsable del tratamiento</h2><p>El responsable de los datos recogidos en este sitio es <strong>Noelia Lizárraga</strong>. Puedes contactarme por cualquier duda o para ejercer tus derechos en <a href="mailto:noe@noeliza.com">noe@noeliza.com</a>.</p></section><section><h2>2. Qué información recojo</h2><ul><li><strong>Formulario de contacto:</strong> nombre, email, sitio web (opcional), motivo y mensaje. Estos datos se envían tal cual los escribes a una hoja de cálculo privada de Google Sheets, mediante Google Apps Script, solo para poder responderte.</li><li><strong>Datos de navegación:</strong> solo si lo permites en el banner, uso cookies de analítica (Google Analytics 4) y, si aceptas la publicidad, también de Meta Pixel, para entender de forma agregada cómo se usa el sitio.</li><li><strong>Preferencias en tu navegador:</strong> guardo en el almacenamiento local tu decisión sobre las cookies (durante 12 meses) y tu preferencia de tema claro u oscuro. No salen de tu dispositivo.</li></ul></section><section class="highlight"><h2>3. Arquitectura privacy-first</h2><ul><li><strong>Google Consent Mode v2:</strong> hasta que decides, todo está denegado. Si rechazas, no se guardan cookies de analítica ni de publicidad; Google solo puede recibir señales agregadas, sin cookies ni identificadores persistentes.</li><li><strong>Hash en el navegador:</strong> antes de registrar el envío del formulario en el dataLayer, tu email se transforma con SHA-256 en tu propio navegador. A las herramientas de analítica solo llega ese hash, nunca el email en texto plano. El mensaje del formulario sí se guarda en claro en mi hoja privada, como indico arriba.</li><li><strong>Scripts desde mi dominio:</strong> los scripts de medición se sirven desde este mismo dominio a través de Cloudflare. Mejora la carga y la fiabilidad de la medición; no cambia qué datos se recogen ni sustituye tu control del consentimiento.</li><li><strong>Tipografías propias:</strong> las fuentes se sirven desde este sitio, sin pedir recursos a Google Fonts.</li></ul></section><section><h2>4. Terceros que intervienen</h2><p>Google (Tag Manager, Analytics, Sheets y Apps Script), Meta (Pixel, solo si aceptas la publicidad) y Cloudflare (proxy y entrega del sitio). Cada uno trata los datos según sus propias políticas.</p></section><section><h2>5. Tus derechos</h2><p>Puedes acceder, rectificar, limitar o pedir la eliminación de los datos que enviaste con el formulario. Escríbeme a <a href="mailto:noe@noeliza.com">noe@noeliza.com</a>. Puedes cambiar tu decisión sobre las cookies en cualquier momento desde «Configuración de cookies», al pie de la página.</p></section></article></div></main><footer><div class="wrap"><div class="foot"><p class="rights">© 2026 NoeLiza · Política de privacidad</p><div class="legal"><button type="button" id="open-consent">Configuración de cookies</button></div></div></div></footer><!-- Oculto por defecto: consent.ts lo muestra si todavía no hay una decisión vigente. --><div class="banner" id="banner" role="dialog" aria-labelledby="b-t" aria-describedby="b-d" hidden><h2 id="b-t">Tu privacidad, tú decides</h2><p id="b-d">Uso cookies de analítica y de publicidad solo si tú lo permites. Sin tu permiso, la medición se limita a señales anónimas sin cookies. <a href="/privacidad.html" class="policy-link">Política de privacidad</a>.</p><div class="btns"><button class="btn" id="c-reject" type="button">Rechazar todo</button><button class="btn" id="c-accept" type="button">Aceptar todo</button></div><button class="linkbtn" id="c-custom" type="button" aria-expanded="false" aria-controls="c-panel">Personalizar</button><div class="cpanel" id="c-panel" hidden><label><input type="checkbox" id="chk-analytics"><span>Analítica<small>analytics_storage: mide visitas y uso de forma agregada.</small></span></label><label><input type="checkbox" id="chk-ads"><span>Publicidad<small>ad_storage, ad_user_data y ad_personalization.</small></span></label><button class="btn primary" id="c-save" type="button">Guardar selección</button></div></div><script type="module" src="/_astro/Base.astro_astro_type_script_index_0_lang.B-PU9khy.js"></script></body></html>

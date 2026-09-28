@@ -1,0 +1,36 @@
+---
+import type { Dict } from "../i18n";
+
+interface Props {
+  t: Dict;
+}
+const { t } = Astro.props;
+const c = t.cases;
+---
+
+<section class="sec" id="proyectos" aria-labelledby="proy-t">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">{c.kicker}</p>
+      <h2 id="proy-t">{c.title}</h2>
+      <p>{c.lead}</p>
+    </div>
+    <div>
+      {
+        c.items.map((item) => (
+          <article class="case">
+            <div>
+              <p class="tag">{item.tag}</p>
+              <p class="state">{item.state}</p>
+            </div>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+              <p class="core">{item.core}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,33 @@
+---
+import type { Dict } from "../i18n";
+import { fill } from "../i18n";
+import { SITE, PATHS, type Lang } from "../data/site";
+import Icon from "./Icon.astro";
+
+interface Props {
+  t: Dict;
+  lang: Lang;
+}
+const { t, lang } = Astro.props;
+const f = t.footer;
+---
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <img class="flogo" src="/assets/logo-dark.webp" alt={f.logoAlt} height="26" width="98" />
+      <p class="credit" set:html={f.credit} />
+      <p class="rights">{f.rights}</p>
+      <ul class="social">
+        <li><a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" aria-label={f.linkedinLabel} data-track-event="social_click" data-track-section="footer" data-track-element="LinkedIn"><Icon name="linkedin" /></a></li>
+        <li><a href={SITE.github} target="_blank" rel="noopener noreferrer" aria-label={f.githubLabel} data-track-event="social_click" data-track-section="footer" data-track-element="GitHub"><Icon name="github" /></a></li>
+        <li><a href={`mailto:${SITE.email}`} aria-label={fill(f.emailLabel, { email: SITE.email })} data-track-event="social_click" data-track-section="footer" data-track-element="Email"><Icon name="mail" /></a></li>
+      </ul>
+      <div class="legal">
+        <a href={PATHS.privacy[lang]} data-track-event="navigation_click" data-track-location="footer_nav" data-track-section="footer">{t.common.privacy}</a>
+        <span aria-hidden="true"></span>
+        <button type="button" id="open-consent" data-track-event="navigation_click" data-track-location="footer_nav" data-track-section="footer">{t.common.cookieSettings}</button>
+      </div>
+    </div>
+  </div>
+</footer>

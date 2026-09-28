@@ -1,0 +1,37 @@
+---
+import type { Dict } from "../i18n";
+import { SITE, type Lang } from "../data/site";
+import { EVENTS } from "../data/events";
+
+interface Props {
+  t: Dict;
+  lang: Lang;
+}
+const { t, lang } = Astro.props;
+const p = t.plan;
+const rows = EVENTS.filter((e) => e.showInSite);
+---
+
+<section class="sec" id="plan" aria-labelledby="plan-t">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">{p.kicker}</p>
+      <h2 id="plan-t">{p.title}</h2>
+      <p>{p.lead}</p>
+    </div>
+    <div class="tscroll">
+      <table>
+        <thead>
+          <tr><th scope="col">{p.cols.event}</th><th scope="col">{p.cols.when}</th><th scope="col">{p.cols.destination}</th></tr>
+        </thead>
+        <tbody>
+          {rows.map((e) => <tr><td><code>{e.name}</code></td><td>{e.when[lang]}</td><td>{e.destinations.join(", ")}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <div class="after">
+      <a class="btn" href={SITE.trackingPlanUrl} target="_blank" rel="noopener noreferrer" data-track-event="cta_click" data-track-section="proof_section" data-track-location="tracking_plan">{p.cta}</a>
+      <span>{p.ctaNote}</span>
+    </div>
+  </div>
+</section>

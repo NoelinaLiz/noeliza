@@ -1,0 +1,24 @@
+---
+import type { Dict } from "../i18n";
+
+interface Props {
+  t: Dict;
+}
+const { t } = Astro.props;
+const a = t.about;
+---
+
+<section class="sec" id="sobre-mi" aria-labelledby="about-t">
+  <div class="wrap about">
+    <div class="sec-head">
+      <p class="kicker">{a.kicker}</p>
+      <h2 id="about-t">{a.title}</h2>
+    </div>
+    <div class="about-body">
+      {a.paragraphs.map((p) => <p set:html={p} />)}
+      <dl class="facts">
+        {a.facts.map((f) => <div><dt>{f.label}</dt><dd>{f.value}</dd></div>)}
+      </dl>
+    </div>
+  </div>
+</section>

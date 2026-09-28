@@ -1,0 +1,51 @@
+---
+import type { Dict } from "../i18n";
+
+interface Props {
+  t: Dict;
+}
+const { t } = Astro.props;
+const c = t.console;
+
+// Textos que necesita console.ts (se leen del DOM, así el JavaScript no lleva copy incrustado).
+const strings = {
+  console: c.js,
+  labels: { pause: c.pause, resume: c.resume, live: c.live, paused: c.paused },
+  flow: {
+    consent: { defaultNote: t.flow.consent.defaultNote, note: t.flow.consent.note },
+    ga4: t.flow.ga4,
+    meta: t.flow.meta,
+    idle: t.flow.idle,
+    consentUpdated: t.flow.consentUpdated,
+    systemLogged: t.flow.systemLogged,
+    routed: t.flow.routed,
+    gaFull: t.flow.gaFull,
+    gaLimited: t.flow.gaLimited,
+    metaSent: t.flow.metaSent,
+    metaWaiting: t.flow.metaWaiting,
+  },
+};
+const filters = Object.entries(c.filters);
+---
+
+<div id="consola">
+  <div class="term" id="term" role="region" aria-label={c.region}>
+    <div class="term-head">
+      <span class="term-title"><span class="live" aria-hidden="true"></span><span id="live-label">{c.live}</span></span>
+      <span class="term-tools">
+        <button class="tbtn solid" id="sim" type="button" data-track-event="interactive_click" data-track-location="debugger" data-track-element="simulate_button" data-track-section="live_debugger">{c.simulate}</button>
+        <button class="tbtn" id="pause" type="button" aria-pressed="false">{c.pause}</button>
+        <button class="tbtn" id="copy" type="button">{c.copy}</button>
+        <button class="tbtn" id="clear" type="button">{c.clear}</button>
+      </span>
+    </div>
+    <div class="consent-strip" id="cstrip" aria-label={c.consentLabel}></div>
+    <div class="filters" role="group" aria-label={c.filtersLabel}>
+      {filters.map(([key, label]) => <button type="button" data-f={key} aria-pressed={key === "all" ? "true" : "false"}>{label}</button>)}
+    </div>
+    <ol id="ev-list"></ol>
+    <div class="empty" id="ev-empty" hidden>{c.empty}</div>
+    <div class="term-foot"><span id="ev-count"></span><span id="ev-status" role="status"></span></div>
+  </div>
+  <script type="application/json" id="i18n-live" set:html={JSON.stringify(strings)} />
+</div>

@@ -1,0 +1,32 @@
+---
+import type { Dict } from "../i18n";
+
+interface Props {
+  t: Dict;
+}
+const { t } = Astro.props;
+const f = t.flow;
+---
+
+<section class="sec" id="flujo" aria-labelledby="flujo-t">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="kicker">{f.kicker}</p>
+      <h2 id="flujo-t">{f.title}</h2>
+      <p>{f.lead}</p>
+    </div>
+    <div class="flow" id="flow">
+      <div class="node" id="n-browser"><b>{f.browser.name}</b><small>{f.browser.note}</small></div>
+      <span class="arrow" aria-hidden="true"></span>
+      <div class="node" id="n-consent"><b>{f.consent.name}</b><small id="n-consent-s">{f.consent.defaultNote}</small></div>
+      <span class="arrow" aria-hidden="true"></span>
+      <div class="node" id="n-gtm"><b>{f.gtm.name}</b><small>{f.gtm.note}</small></div>
+      <span class="arrow" aria-hidden="true"></span>
+      <div class="dest">
+        <div class="node dashed" id="n-ga4"><b>{f.ga4.name}</b><small id="n-ga4-s">{f.ga4.limited}</small></div>
+        <div class="node dashed" id="n-meta"><b>{f.meta.name}</b><small id="n-meta-s">{f.meta.waiting}</small></div>
+      </div>
+    </div>
+    <p class="flow-status" id="flow-status" role="status" aria-live="polite">{f.idle}</p>
+  </div>
+</section>

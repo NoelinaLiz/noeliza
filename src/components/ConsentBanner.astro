@@ -1,0 +1,27 @@
+---
+import type { Dict } from "../i18n";
+import { PATHS, type Lang } from "../data/site";
+
+interface Props {
+  t: Dict;
+  lang: Lang;
+}
+const { t, lang } = Astro.props;
+const b = t.banner;
+---
+
+<!-- Oculto por defecto: consent.ts lo muestra si todavía no hay una decisión vigente. -->
+<div class="banner" id="banner" role="dialog" aria-labelledby="b-t" aria-describedby="b-d" hidden>
+  <h2 id="b-t">{b.title}</h2>
+  <p id="b-d">{b.text} <a href={PATHS.privacy[lang]} class="policy-link">{b.policy}</a>.</p>
+  <div class="btns">
+    <button class="btn" id="c-reject" type="button">{b.reject}</button>
+    <button class="btn" id="c-accept" type="button">{b.accept}</button>
+  </div>
+  <button class="linkbtn" id="c-custom" type="button" aria-expanded="false" aria-controls="c-panel">{b.customize}</button>
+  <div class="cpanel" id="c-panel" hidden>
+    <label><input type="checkbox" id="chk-analytics" /><span>{b.analytics}<small>{b.analyticsNote}</small></span></label>
+    <label><input type="checkbox" id="chk-ads" /><span>{b.ads}<small>{b.adsNote}</small></span></label>
+    <button class="btn primary" id="c-save" type="button">{b.save}</button>
+  </div>
+</div>

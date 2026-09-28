@@ -1,0 +1,58 @@
+---
+import type { Dict } from "../i18n";
+import { fill } from "../i18n";
+import { SITE } from "../data/site";
+import { CONTACT_REASONS } from "../data/events";
+import Icon from "./Icon.astro";
+
+interface Props {
+  t: Dict;
+}
+const { t } = Astro.props;
+const c = t.contact;
+const f = c.form;
+const strings = { send: f.send, sending: f.sending, note: f.note, errorRequired: f.errorRequired, errorEmail: f.errorEmail, errorSend: f.errorSend };
+---
+
+<section class="sec" id="contacto" aria-labelledby="cont-t">
+  <div class="wrap contact-grid">
+    <div class="sec-head">
+      <p class="kicker">{c.kicker}</p>
+      <h2 id="cont-t">{c.title}</h2>
+      <p>{c.lead}</p>
+      <p class="direct-label">{c.direct}</p>
+      <div class="icons">
+        <a href={`mailto:${SITE.email}`} aria-label={fill(c.emailLabel, { email: SITE.email })} title={SITE.email} data-track-event="social_click" data-track-section="contact" data-track-element="Email"><Icon name="mail" /></a>
+        <a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" aria-label={c.linkedinLabel} title="LinkedIn" data-track-event="social_click" data-track-section="contact" data-track-element="LinkedIn"><Icon name="linkedin" /></a>
+      </div>
+    </div>
+    <div>
+      <form id="form" novalidate data-endpoint={SITE.formEndpoint}>
+        <div class="two">
+          <div><label for="f-nombre">{f.name}</label><input id="f-nombre" name="nombre" type="text" required autocomplete="name" placeholder={f.namePh} /></div>
+          <div><label for="f-email">{f.email}</label><input id="f-email" name="email" type="email" required autocomplete="email" placeholder={f.emailPh} /></div>
+        </div>
+        <div class="two">
+          <div>
+            <label for="f-servicio">{f.reason}</label>
+            <select id="f-servicio" name="servicio">
+              {CONTACT_REASONS.map((r) => <option value={r.value}>{f.reasons[r.value]}</option>)}
+            </select>
+          </div>
+          <div><label for="f-web">{f.web}</label><input id="f-web" name="web" type="url" autocomplete="url" placeholder={f.webPh} /></div>
+        </div>
+        <div><label for="f-mensaje">{f.message}</label><textarea id="f-mensaje" name="mensaje" required placeholder={f.messagePh}></textarea></div>
+        <div class="hp" aria-hidden="true"><label for="f-hp">{f.honeypot}</label><input id="f-hp" name="contact_website" type="text" tabindex="-1" autocomplete="off" /></div>
+        <div><button class="btn primary" id="f-send" type="submit" style="width:100%">{f.send}</button></div>
+        <p class="fine" id="f-msg" role="status">{f.note}</p>
+      </form>
+      <div class="ok-box" id="ok" hidden>
+        <h3>{c.ok.title}</h3>
+        <p set:html={c.ok.text} />
+        <p style="margin-top:10px">{c.ok.hash} <code id="ok-hash"></code></p>
+        <button class="btn ghost" id="again" type="button" style="margin-top:16px">{c.ok.again}</button>
+      </div>
+    </div>
+  </div>
+  <script type="application/json" id="i18n-form" set:html={JSON.stringify(strings)} />
+</section>

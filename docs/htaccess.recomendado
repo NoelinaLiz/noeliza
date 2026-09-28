@@ -1,0 +1,30 @@
+# Propuesta de .htaccess para Hostinger (LiteSpeed). NO forma parte del despliegue.
+# Añádelo a mano al .htaccess que ya exista en public_html; no lo sustituyas.
+# Cada bloque está protegido con <IfModule>, así que si un módulo no existe se ignora.
+
+# --- Cabeceras de seguridad -----------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  # HSTS: una vez que el navegador lo recibe, exige HTTPS durante 1 año.
+  # Actívalo solo si TODO el dominio funciona por HTTPS (hoy lo hace).
+  Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>
+
+# --- Caché ----------------------------------------------------------------------
+# Los archivos de /_astro/ llevan un hash en el nombre: si cambian, cambia la URL.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 month"
+</IfModule>
+
+# Nota: no se propone una Content-Security-Policy estricta porque el sitio usa scripts
+# inline (consentimiento y GTM) y GTM carga recursos de terceros; haría falta una
+# política con hashes y pruebas en modo "report-only" antes de activarla.
