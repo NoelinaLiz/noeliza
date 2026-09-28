@@ -25,8 +25,6 @@ interface Strings {
     visible: string;
     queued: string;
     noParams: string;
-    copied: string;
-    copyFailed: string;
     cleared: string;
     simulatedSummary: string;
     simulatedMessage: string;
@@ -278,15 +276,6 @@ function init(list: HTMLOListElement, s: Strings): void {
     list.textContent = "";
     refresh();
     flash(s.console.cleared);
-  });
-
-  $("#copy")!.addEventListener("click", async () => {
-    try {
-      await navigator.clipboard.writeText(JSON.stringify(events.map((e) => e.data), null, 2));
-      flash(s.console.copied);
-    } catch {
-      flash(s.console.copyFailed);
-    }
   });
 
   document.querySelectorAll<HTMLButtonElement>(".filters button").forEach((button) => {
